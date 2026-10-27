@@ -21,7 +21,7 @@ export type Personal = {
   self_descriptors: string[];
 };
 
-export type Course = { id: string; name: string; abbrev: string; tags: string[] };
+export type Course = { id: string; name: string; abbrev: string; tags: string[]; code?: string; status?: "completed" | "in_progress" };
 export type Degree = {
   id: string;
   kind: string;
@@ -219,7 +219,7 @@ export function loadEducation(): Degree[] {
     gpa: (d.gpa as string) ?? null,
     honors: (d.honors as string) ?? null,
     courses: ((d.courses as Course[]) ?? []).map((c) => ({
-      id: c.id, name: c.name, abbrev: c.abbrev ?? c.name, tags: c.tags ?? [],
+      id: c.id, name: c.name, abbrev: c.abbrev ?? c.name, tags: c.tags ?? [], code: c.code, status: c.status,
     })),
   }));
 }

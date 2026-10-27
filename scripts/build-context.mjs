@@ -53,7 +53,7 @@ for (const d of education.degrees) {
   if (d.gpa) out.push(`- GPA: ${d.gpa}`);
   if (d.honors) out.push(`- Honors: ${d.honors}`);
   if (d.courses?.length) {
-    out.push(`- Relevant courses: ${d.courses.map((c) => c.name || c.abbrev).join(', ')}`);
+    out.push(`- Relevant courses: ${d.courses.map((c) => `${c.name || c.abbrev}${c.code ? ` (${c.code})` : ''}${c.status === 'in_progress' ? ' — in progress' : c.status === 'completed' ? ' — completed' : ''}`).join(', ')}`);
   }
   out.push('');
 }
