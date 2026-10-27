@@ -452,7 +452,7 @@ export function IdePortfolio({ personal, experiences, projects, skills, educatio
                       {d.gpa && <li><strong className="text-[color:var(--accent-3)]">GPA:</strong> {d.gpa}</li>}
                       {d.honors && <li><strong className="text-[color:var(--accent-3)]">Honors:</strong> {d.honors}</li>}
                       {d.courses && d.courses.length > 0 && (
-                        <li><strong className="text-[color:var(--accent-3)]">Relevant Coursework:</strong> {d.courses.map((c:any) => `${c.abbrev}${c.code ? ` (${c.code})` : ""}${c.status === "in_progress" ? " — in progress" : c.status === "completed" ? " — completed" : ""}`).join(", ")}</li>
+                        <li><strong className="text-[color:var(--accent-3)]">Relevant Coursework:</strong> {d.courses.map((c:any) => `${c.abbrev}${c.status === "in_progress" ? " — in progress" : c.status === "completed" ? " — completed" : ""}`).join(", ")}</li>
                       )}
                     </ul>
                   )}

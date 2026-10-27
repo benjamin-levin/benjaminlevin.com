@@ -14,7 +14,7 @@
         {"id": "rl", "name": "Reinforcement Learning", "abbrev": "RL", "tags": ["ml", "rl", "ai"]},
         {"id": "ml-trading", "name": "Machine Learning for Trading", "abbrev": "ML for Trading", "tags": ["ml", "quant", "trading", "finance"]},
         {"id": "mgt8813", "name": "Financial Modelling", "abbrev": "Financial Modelling", "code": "MGT8813", "status": "completed", "tags": ["finance", "modelling", "quant"]},
-        {"id": "cs7643", "name": "Deep Learning", "abbrev": "Deep Learning", "code": "CS7643", "status": "in_progress", "tags": ["ml", "ai", "deep-learning"]}
+        {"id": "cs7643", "name": "Deep Learning", "abbrev": "DL", "code": "CS7643", "status": "in_progress", "tags": ["ml", "ai", "deep-learning"]}
       ]
     },
     {
