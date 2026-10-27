@@ -30,6 +30,7 @@ export default async function ProjectPage({ params }: { params: Params }) {
 
   return (
     <DetailPage
+      entryId={project.id}
       backHref="/#projects"
       backLabel="Back to projects"
       eyebrow={project.role ?? undefined}

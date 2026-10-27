@@ -62,7 +62,7 @@ function firstParagraphPlain(body: string): string {
   for (const p of paragraphs) {
     const t = p.trim();
     if (!t) continue;
-    if (t.startsWith("#") || t.startsWith("```") || t.startsWith("|")) continue;
+    if (t.startsWith("#") || t.startsWith("```") || t.startsWith("|") || t.startsWith("![")) continue;
     if (t.startsWith("-") || t.startsWith("*") || /^\d+\./.test(t)) continue;
     const plain = t
       .replace(/`([^`]+)`/g, "$1")

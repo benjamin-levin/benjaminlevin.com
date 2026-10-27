@@ -7,8 +7,10 @@ import { EdgeEntry } from "@/components/EdgeEntry";
 import type { ProjectMedia as MediaType } from "@/lib/data";
 import type { Highlight } from "@/lib/highlights";
 import type { DetailNeighbors } from "@/lib/detailOrder";
+import { detailSectionAliases } from "@/lib/detailPresentation";
 
 export type DetailPageProps = {
+  entryId?: string;
   backHref?: string;
   backLabel?: string;
   eyebrow?: string;
@@ -25,6 +27,7 @@ export type DetailPageProps = {
 };
 
 export function DetailPage({
+  entryId = "",
   backHref = "/",
   backLabel = "Back to portfolio",
   eyebrow,
@@ -154,6 +157,7 @@ export function DetailPage({
             <div className="mt-14 space-y-16">
               {sections.map((s, i) => (
                 <section key={s.slug} id={s.slug} className="scroll-mt-24">
+                  {detailSectionAliases(entryId, s.slug).map((alias) => <span key={alias} id={alias} className="block scroll-mt-24" aria-hidden="true" />)}
                   <div className="flex items-baseline justify-between gap-4 border-b border-white/[.06] pb-3 mb-5">
                     <h2 className="text-xl md:text-2xl font-semibold tracking-tight">
                       <span className="mono text-xs text-[color:var(--accent)] mr-3 align-middle">

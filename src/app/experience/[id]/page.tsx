@@ -33,6 +33,7 @@ export default async function ExperiencePage({ params }: { params: Params }) {
 
   return (
     <DetailPage
+      entryId={exp.id}
       backHref="/#experience"
       backLabel="Back to experience"
       eyebrow={eyebrow}

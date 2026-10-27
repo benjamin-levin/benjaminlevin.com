@@ -6,7 +6,7 @@ import { PreviewCard } from "@/components/PreviewCard";
 import { EXPERIENCE_HIGHLIGHTS, PROJECT_HIGHLIGHTS } from "@/lib/highlights";
 import { HighlightStrip } from "@/components/HighlightStrip";
 import { splitSubsections, renderMarkdown } from "@/lib/markdown";
-import { isSinglePageEntry } from "@/lib/detailPresentation";
+import { isSinglePageEntry, resolveDetailFile } from "@/lib/detailPresentation";
 import { EdgeNav, type EdgeNeighbor } from "@/components/EdgeNav";
 
 // Type definitions to mirror what we get from loadAll
@@ -126,9 +126,9 @@ function parseFile(rawHash: string): ActiveFile | null {
   if (h === "skills.md" || h === "skills.json" || h === "skills") return { type: "skills" };
   if (h === "education.md" || h === "education") return { type: "education" };
   const expMatch = /^experiences\/([^/]+)\/(.+)$/.exec(h);
-  if (expMatch) return { type: "experience", id: expMatch[1], file: isSinglePageEntry(expMatch[1]) ? "overview.md" : expMatch[2] };
+  if (expMatch) return { type: "experience", id: expMatch[1], file: resolveDetailFile(expMatch[1], expMatch[2]) };
   const projMatch = /^projects\/([^/]+)\/(.+)$/.exec(h);
-  if (projMatch) return { type: "project", id: projMatch[1], file: isSinglePageEntry(projMatch[1]) ? "overview.md" : projMatch[2] };
+  if (projMatch) return { type: "project", id: projMatch[1], file: resolveDetailFile(projMatch[1], projMatch[2]) };
   return null;
 }
 
