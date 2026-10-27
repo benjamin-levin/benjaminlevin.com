@@ -1,0 +1,518 @@
+@import "tailwindcss";
+
+:root {
+  --bg: #030305;
+  --bg-elev: #0a0a0f;
+  --bg-card: #0f0f16;
+  --border: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.15);
+  --fg: #f8fafc;
+  --fg-muted: #94a3b8;
+  --fg-dim: #64748b;
+  --accent: #3b82f6; /* Blue */
+  --accent-2: #8b5cf6; /* Violet */
+  --accent-3: #06b6d4; /* Cyan */
+  --mono: var(--font-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --sans: var(--font-sans), ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+@theme inline {
+  --color-background: var(--bg);
+  --color-foreground: var(--fg);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body {
+  background-color: var(--bg);
+  color: var(--fg);
+  font-family: var(--sans);
+  font-feature-settings: "ss01", "cv01", "cv11";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  scroll-behavior: smooth;
+}
+
+/* Cyberpunk-inspired Background */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  background:
+    radial-gradient(1200px 800px at 50% -20%, rgba(59, 130, 246, 0.12), transparent 60%),
+    radial-gradient(800px 600px at 100% 40%, rgba(139, 92, 246, 0.08), transparent 50%),
+    radial-gradient(1000px 600px at -10% 80%, rgba(6, 182, 212, 0.06), transparent 50%);
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Subtle grid overlay for tech/hacker vibe */
+body::after {
+  content: "";
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  background-image: linear-gradient(var(--border) 1px, transparent 1px),
+                    linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 60px 60px;
+  background-position: center center;
+  opacity: 0.3;
+  mask-image: radial-gradient(circle at center, black, transparent 80%);
+  z-index: -2;
+  pointer-events: none;
+}
+
+@layer base {
+  a { color: inherit; text-decoration: none; }
+  a:hover { color: var(--fg); }
+}
+
+::selection { background: rgba(59, 130, 246, 0.4); color: white; }
+
+.mono { font-family: var(--mono); }
+
+/* Advanced Glow Effects */
+.glow-text {
+  text-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, #ffffff 0%, #93c5fd 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Markdown prose rendering */
+.prose-tight { color: var(--fg); line-height: 1.7; font-size: 0.96rem; }
+.prose-tight h1 { font-size: 1.5rem; font-weight: 600; margin: 1.5rem 0 0.75rem; color: var(--fg); }
+.prose-tight h2 { font-size: 1.25rem; font-weight: 600; margin: 1.25rem 0 0.5rem; color: var(--fg); }
+.prose-tight h3 { font-size: 1.1rem; font-weight: 600; margin: 1rem 0 0.4rem; color: var(--fg); }
+.prose-tight h4 { font-size: 0.95rem; font-weight: 600; margin: 0.85rem 0 0.3rem; color: var(--fg-muted); text-transform: uppercase; letter-spacing: 0.05em; font-family: var(--mono); }
+.prose-tight p { margin: 0.5rem 0; color: var(--fg-muted); }
+.prose-tight ul, .prose-tight ol { margin: 0.5rem 0; padding-left: 1.2rem; color: var(--fg-muted); }
+.prose-tight li { margin: 0.25rem 0; }
+.prose-tight strong { color: var(--fg); font-weight: 600; }
+.prose-tight code {
+  font-family: var(--mono);
+  font-size: 0.85em;
+  background: rgba(255, 255, 255, 0.08);
+  padding: 0.15em 0.4em;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  color: var(--accent-3);
+}
+.prose-tight pre {
+  background: #09090b;
+  border: 1px solid var(--border-strong);
+  border-radius: 8px;
+  padding: 1rem;
+  overflow-x: auto;
+  font-size: 0.85rem;
+  box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
+}
+.prose-tight pre code { background: none; border: none; padding: 0; color: var(--fg-muted); }
+.prose-tight table { border-collapse: collapse; margin: 1rem 0; font-size: 0.9rem; width: 100%; }
+.prose-tight th, .prose-tight td { border: 1px solid var(--border); padding: 0.5rem 0.75rem; text-align: left; }
+.prose-tight th { background: rgba(255, 255, 255, 0.05); font-weight: 600; font-family: var(--mono); text-transform: uppercase; font-size: 0.8rem; }
+.prose-tight blockquote {
+  border-left: 3px solid var(--accent);
+  padding-left: 1rem;
+  color: var(--fg-dim);
+  margin: 1rem 0;
+  font-style: italic;
+  background: linear-gradient(90deg, rgba(59, 130, 246, 0.05) 0%, transparent 100%);
+}
+.prose-tight hr { border: none; border-top: 1px solid var(--border); margin: 1.5rem 0; }
+
+/* Inline media from markdown ![alt](url) syntax — images and videos */
+.prose-tight .md-img,
+.prose-tight .md-video {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  margin: 1.25rem auto 0.4rem;
+  border-radius: 10px;
+  border: 1px solid var(--border-strong);
+  background: #000;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.45);
+}
+
+/* Size variants opted into via `[small]` / `[medium]` / `[tiny]` alt-text
+   prefix — useful for portrait clips that shouldn't dominate the column. */
+.prose-tight .md-video-small,
+.prose-tight .md-img-small {
+  width: auto;
+  max-width: 520px;
+  max-height: 480px;
+}
+.prose-tight .md-video-medium,
+.prose-tight .md-img-medium {
+  width: auto;
+  max-width: 720px;
+  max-height: 600px;
+}
+.prose-tight .md-video-tiny,
+.prose-tight .md-img-tiny {
+  width: auto;
+  max-width: 360px;
+  max-height: 320px;
+}
+
+/* Side-by-side row from `:::row ... :::` markdown directive — each image
+   flexes equally. Captions stack under their image. Wraps to multi-row on
+   narrow screens. */
+.prose-tight .md-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin: 1.25rem 0;
+  align-items: flex-start;
+}
+.prose-tight .md-row > .md-block {
+  flex: 1 1 0;
+  min-width: 180px;
+  margin: 0;
+}
+.prose-tight .md-row .md-img,
+.prose-tight .md-row .md-video {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  max-height: none;
+  margin: 0 0 0.4rem;
+}
+.prose-tight .md-row .md-caption {
+  margin-bottom: 0;
+}
+.prose-tight .md-caption {
+  display: block;
+  font-family: var(--mono);
+  font-size: 0.74rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--fg-dim);
+  text-align: center;
+  margin: 0 0 1.25rem;
+}
+
+/* Side-by-side grid for runs of small images (e.g., per-feature board diagrams).
+   Auto-fits columns 200–360px wide; on narrow screens collapses to 2 across,
+   then 1 on mobile. */
+.prose-tight .md-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin: 1.25rem 0;
+}
+.prose-tight .md-grid-item {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+.prose-tight .md-grid-item .md-img,
+.prose-tight .md-grid-item .md-video {
+  margin: 0;
+  max-height: 280px;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  background: #0a0a0d;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
+}
+.prose-tight .md-grid-item .md-caption {
+  margin: 0.5rem 0 0;
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+}
+.prose-tight .md-block { margin: 0; }
+
+/* ---------------------------------------------------------------------------
+   Edge-pull navigation. Visual language matches the site's card system:
+   same border weight, same backdrop, same mono-eyebrow + sans-title
+   typography. No bouncing animations — the gesture itself is the affordance.
+   --------------------------------------------------------------------------- */
+
+[data-edge-nav] {
+  --edge-pull-y: 0px;
+  transform: translate3d(0, calc(var(--edge-pull-y) * -1), 0);
+  /* Spring curve — overshoots slightly when settling so the rubber-band
+     release feels physical, not just dampened. */
+  transition: transform 220ms cubic-bezier(0.22, 1.32, 0.36, 1);
+  will-change: transform;
+}
+[data-edge-nav].edge-exit-up {
+  transform: translate3d(0, -110vh, 0);
+  transition: transform 380ms cubic-bezier(0.5, 0, 0.2, 1), opacity 260ms ease-in;
+  opacity: 0.35;
+}
+[data-edge-nav].edge-exit-down {
+  transform: translate3d(0, 110vh, 0);
+  transition: transform 380ms cubic-bezier(0.5, 0, 0.2, 1), opacity 260ms ease-in;
+  opacity: 0.35;
+}
+
+/* View Transitions API: when EdgeNav commits, we tag <html data-edge-dir="next|prev">.
+   The browser snapshots the old page (root) and animates both old and new
+   simultaneously via these custom keyframes — old slides off, new slides in
+   from the matching edge. End result: the new page visibly enters from the
+   direction the user scrolled, no snap-replace. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 420ms;
+  animation-timing-function: cubic-bezier(0.5, 0, 0.2, 1);
+}
+html[data-edge-dir="next"]::view-transition-old(root) { animation-name: edge-vt-old-next; }
+html[data-edge-dir="next"]::view-transition-new(root) { animation-name: edge-vt-new-next; }
+html[data-edge-dir="prev"]::view-transition-old(root) { animation-name: edge-vt-old-prev; }
+html[data-edge-dir="prev"]::view-transition-new(root) { animation-name: edge-vt-new-prev; }
+@keyframes edge-vt-old-next { to   { transform: translateY(-100vh); opacity: 0.6; } }
+@keyframes edge-vt-new-next { from { transform: translateY( 100vh); opacity: 0.7; } }
+@keyframes edge-vt-old-prev { to   { transform: translateY( 100vh); opacity: 0.6; } }
+@keyframes edge-vt-new-prev { from { transform: translateY(-100vh); opacity: 0.7; } }
+
+/* Edge boundary — a thin band fixed to the very top/bottom of the
+   viewport that signals "the page edge is the springy barrier". Reads
+   as page chrome (status-bar style), not a floating overlay. */
+.edge-banner {
+  position: fixed;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: 0.4rem 1rem;
+  background: linear-gradient(180deg,
+    color-mix(in srgb, var(--bg-card) 88%, transparent) 0%,
+    color-mix(in srgb, var(--bg-card) 60%, transparent) 100%);
+  color: var(--fg);
+  backdrop-filter: blur(16px) saturate(140%);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+  z-index: 40;
+  pointer-events: none;
+  transition: opacity 200ms ease-out, padding 240ms cubic-bezier(0.22, 1, 0.36, 1);
+  font-family: var(--sans);
+  white-space: nowrap;
+}
+.edge-banner-top {
+  top: 0;
+  border-bottom: 1px solid rgba(59, 130, 246, 0.18);
+  background: linear-gradient(0deg,
+    color-mix(in srgb, var(--bg-card) 88%, transparent) 0%,
+    color-mix(in srgb, var(--bg-card) 60%, transparent) 100%);
+}
+.edge-banner-bottom {
+  bottom: 0;
+  border-top: 1px solid rgba(59, 130, 246, 0.18);
+}
+
+/* Active state: brighter border + a horizontal progress strip across the
+   barrier (left to right) that fills as the user pulls. Reads like a
+   "tension meter" on the boundary. */
+.edge-banner-active {
+  border-color: rgba(59, 130, 246, 0.45);
+}
+.edge-banner-bottom.edge-banner-active { border-top-color: rgba(59, 130, 246, 0.45); }
+.edge-banner-top.edge-banner-active    { border-bottom-color: rgba(59, 130, 246, 0.45); }
+.edge-banner-active::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-3));
+  pointer-events: none;
+  transform: scaleX(var(--edge-progress, 0));
+  transform-origin: left center;
+  transition: transform 80ms linear;
+  box-shadow: 0 0 14px rgba(59, 130, 246, 0.65);
+}
+.edge-banner-top.edge-banner-active::before    { bottom: 0; }
+.edge-banner-bottom.edge-banner-active::before { top: 0; }
+
+.edge-banner-arrow {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: color-mix(in srgb, var(--accent) 70%, var(--fg-muted));
+  letter-spacing: 0;
+  line-height: 1;
+}
+.edge-banner-active .edge-banner-arrow {
+  color: var(--accent);
+}
+
+.edge-banner-eyebrow {
+  font-family: var(--mono);
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  font-size: 0.6rem;
+  color: var(--fg-dim);
+  font-weight: 700;
+  white-space: nowrap;
+}
+.edge-banner-active .edge-banner-eyebrow {
+  color: var(--accent-3);
+}
+
+.edge-banner-title {
+  font-size: 0.78rem;
+  color: var(--fg);
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  max-width: min(48ch, calc(100vw - 14rem));
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Soft accent gradient at the corresponding edge during pull only. */
+.edge-shadow {
+  position: fixed;
+  left: 0;
+  right: 0;
+  height: 200px;
+  pointer-events: none;
+  z-index: 35;
+  transition: opacity 120ms ease-out;
+}
+.edge-shadow-top    { top: 0;    background: linear-gradient(180deg, rgba(59, 130, 246, 0.18), transparent 70%); }
+.edge-shadow-bottom { bottom: 0; background: linear-gradient(0deg,   rgba(59, 130, 246, 0.18), transparent 70%); }
+
+/* Below `md` the IDE header puts a hamburger in the top-left corner. The top
+   edge banner is fixed, full-width and takes pointer-events once it fades in
+   (opacity > 0.45), so at full width it both covers AND swallows taps on the
+   menu button. Inset it past the corner control. */
+@media (max-width: 767px) {
+  .edge-banner-top {
+    left: 3.5rem;
+    border-bottom-left-radius: 10px;
+  }
+}
+
+@media (max-width: 640px) {
+  .edge-banner {
+    grid-template-columns: auto 1fr;
+    column-gap: 0.6rem;
+    padding: 0.4rem 0.85rem 0.5rem;
+    max-width: calc(100vw - 1.5rem);
+  }
+  .edge-banner-eyebrow { display: none; } /* mobile: drop the eyebrow, keep arrow + title */
+  .edge-banner-title { font-size: 0.78rem; max-width: calc(100vw - 6rem); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-edge-nav] { transform: none !important; transition: none !important; }
+  [data-edge-nav].edge-exit-up, [data-edge-nav].edge-exit-down {
+    transform: none !important; opacity: 1 !important; transition: opacity 180ms;
+  }
+}
+
+/* Continuous-scroll feel: when the user pulled down (committed "next"), the
+   incoming page enters from below — sliding up into view. When they pulled
+   up ("prev"), the incoming page enters from above. Driven by a sessionStorage
+   flag set by EdgeNav at commit time and read by DetailPage on mount. */
+@keyframes edge-enter-from-bottom {
+  from { transform: translate3d(0, 100vh, 0); opacity: 0.5; }
+  to   { transform: translate3d(0, 0, 0); opacity: 1; }
+}
+@keyframes edge-enter-from-top {
+  from { transform: translate3d(0, -100vh, 0); opacity: 0.5; }
+  to   { transform: translate3d(0, 0, 0); opacity: 1; }
+}
+[data-edge-entry="from-bottom"] {
+  animation: edge-enter-from-bottom 360ms cubic-bezier(0.5, 0, 0.2, 1);
+}
+[data-edge-entry="from-top"] {
+  animation: edge-enter-from-top 360ms cubic-bezier(0.5, 0, 0.2, 1);
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-edge-entry] { animation: none !important; }
+}
+
+/* :::callout — pull-quote / single-statement highlight */
+.prose-tight .md-callout {
+  margin: 1.5rem 0;
+  padding: 1.25rem 1.5rem;
+  border-left: 3px solid var(--accent);
+  border-radius: 0 10px 10px 0;
+  background: linear-gradient(90deg, rgba(59, 130, 246, 0.08), transparent 70%);
+  color: var(--fg);
+  font-size: 1.02rem;
+  line-height: 1.6;
+}
+.prose-tight .md-callout p:first-child { margin-top: 0; }
+.prose-tight .md-callout p:last-child { margin-bottom: 0; }
+
+/* :::stats — small grid of headline numbers + labels */
+.prose-tight .md-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 0.75rem;
+  margin: 1.5rem 0;
+}
+.prose-tight .md-stat {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 0.85rem 1rem;
+  background: var(--bg-card);
+}
+.prose-tight .md-stat-value {
+  font-family: var(--mono);
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--fg);
+  letter-spacing: -0.01em;
+}
+.prose-tight .md-stat-label {
+  font-size: 0.78rem;
+  color: var(--fg-muted);
+  margin-top: 0.2rem;
+  line-height: 1.35;
+}
+
+/* :::compare — two-column "approach A vs approach B" */
+.prose-tight .md-compare {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+.prose-tight .md-compare-col {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1rem 1.25rem;
+  background: var(--bg-card);
+}
+@media (max-width: 720px) {
+  .prose-tight .md-compare { grid-template-columns: 1fr; }
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--fg-dim); }
+
+/* ---------------------------------------------------------------------------
+   Zoom suppression for app-shell surfaces.
+
+   Pinch/double-tap zoom stays enabled site-wide (accessibility) — long-form
+   detail pages are prose and should zoom. But the IDE portfolio shell and the
+   assistant chat are fixed-viewport, app-like surfaces where a stray pinch or
+   double-tap just breaks the layout with no way back.
+
+   `pan-x pan-y` permits scrolling and blocks pinch; `manipulation` on controls
+   removes the 300ms double-tap-to-zoom on taps.
+   --------------------------------------------------------------------------- */
+.no-pinch-zoom {
+  touch-action: pan-x pan-y;
+}
+.no-pinch-zoom button,
+.no-pinch-zoom a,
+.no-pinch-zoom [role="button"] {
+  touch-action: manipulation;
+}

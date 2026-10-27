@@ -1,0 +1,20 @@
+{
+  "name": "Benjamin Levin",
+  "preferred_short_name": "Ben",
+  "city": "Cambridge",
+  "state": "MA",
+  "email": "benlevin.co@gmail.com",
+  "links": [
+    {
+      "label": "LinkedIn",
+      "url": "https://linkedin.com/in/ben-a-levin/"
+    }
+  ],
+  "self_descriptors": [
+    "AI / ML engineer",
+    "robotics generalist",
+    "co-founder building governed multi-agent platforms",
+    "spans Python / C++ / Rust",
+    "ML systems and tooling, force-multiplier developer infrastructure"
+  ]
+}

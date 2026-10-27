@@ -1,0 +1,59 @@
+{
+  "degrees": [
+    {
+      "id": "gt-ms-ml",
+      "kind": "MS, Machine Learning",
+      "school": "Georgia Tech",
+      "school_full": "Georgia Institute of Technology",
+      "date": "Aug 2027",
+      "in_progress": true,
+      "gpa": "3.7/4.0",
+      "honors": null,
+      "courses": [
+        {"id": "ml", "name": "Machine Learning", "abbrev": "ML", "tags": ["ml", "ai", "core"]},
+        {"id": "rl", "name": "Reinforcement Learning", "abbrev": "RL", "tags": ["ml", "rl", "ai"]},
+        {"id": "ml-trading", "name": "Machine Learning for Trading", "abbrev": "ML for Trading", "tags": ["ml", "quant", "trading", "finance"]}
+      ]
+    },
+    {
+      "id": "neu-bs-cs",
+      "kind": "BS, Computer Science",
+      "school": "Northeastern",
+      "school_full": "Northeastern University",
+      "date": "Aug 2024",
+      "in_progress": false,
+      "gpa": "3.8/4.0",
+      "honors": "magna cum laude",
+      "courses": [
+        {"id": "robot-sci", "name": "Robot Science & Systems", "abbrev": "Robot Sci", "tags": ["robotics", "ml", "ai"]},
+        {"id": "ai", "name": "Artificial Intelligence", "abbrev": "AI", "tags": ["ai", "ml"]},
+        {"id": "ml-cs", "name": "Machine Learning", "abbrev": "ML", "tags": ["ml", "ai"]},
+        {"id": "algos", "name": "Algorithms", "abbrev": "Algo", "tags": ["systems", "fundamentals", "quant"]},
+        {"id": "comp-sys", "name": "Computer Systems", "abbrev": "Comp Sys", "tags": ["systems", "infra", "lowlevel"]},
+        {"id": "ood", "name": "Object-Oriented Design", "abbrev": "OOD", "tags": ["systems", "engineering"]},
+        {"id": "theory-comp", "name": "Theory of Computation", "abbrev": "Theory Comp", "tags": ["systems", "fundamentals", "quant"]}
+      ]
+    },
+    {
+      "id": "neu-bs-me",
+      "kind": "BS, Mechanical Engineering",
+      "school": "Northeastern",
+      "school_full": "Northeastern University",
+      "date": "Dec 2023",
+      "in_progress": false,
+      "gpa": "3.8/4.0",
+      "honors": "magna cum laude",
+      "courses": [
+        {"id": "robot-mech", "name": "Robot Mechanics & Control", "abbrev": "Robot Mech", "tags": ["robotics", "control", "hardware"]},
+        {"id": "control-systems", "name": "Control Systems and Analysis", "abbrev": "Control Sys", "tags": ["robotics", "control", "hardware"]},
+        {"id": "mech-design", "name": "Mechanical Design", "abbrev": "Mech Design", "tags": ["hardware", "design"]},
+        {"id": "mat-mech", "name": "Mechanics of Materials", "abbrev": "Mat Mech", "tags": ["hardware", "physics"]},
+        {"id": "material-sci", "name": "Material Science", "abbrev": "Material Sci", "tags": ["hardware", "physics", "chemistry"]},
+        {"id": "heat-transfer", "name": "Heat Transfer", "abbrev": "Heat Transfer", "tags": ["physics", "computational"]},
+        {"id": "fluid-mech", "name": "Fluid Mechanics", "abbrev": "Fluid Mech", "tags": ["physics", "computational"]},
+        {"id": "thermo", "name": "Thermodynamics", "abbrev": "Thermo", "tags": ["physics"]},
+        {"id": "me-comp", "name": "", "abbrev": "FEA and ME Computation", "tags": ["physics", "computational", "approximation", "math", "numerical methods"]}
+      ]
+    }
+  ]
+}

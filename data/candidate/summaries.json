@@ -1,0 +1,356 @@
+{
+  "schema_version": 1,
+  "experiences": {
+    "prsm-ai": {
+      "summary": "Co-founder and co-lead developer of PRSM, an in-development software-agent coordination platform. Current work is a modular runtime rework with durable workflow state, extensible integrations, explicit ownership and permissions, independent review, and integration evidence. Internal architecture and proprietary mechanisms remain private.",
+      "key_terms": [
+        "rust",
+        "multi-agent orchestration",
+        "llm coordination",
+        "finite state machine",
+        "git worktree isolation",
+        "model context protocol",
+        "mcp tools",
+        "hidden test authoring",
+        "tool visibility",
+        "bash governance",
+        "tree-sitter",
+        "distributed systems",
+        "multi-provider abstraction",
+        "session persistence",
+        "sqlite"
+      ],
+      "source_mtime": 1793119403
+    },
+    "mantis-dental": {
+      "summary": "Built a computer-vision pipeline for AR-assisted dental surgery: resilient Selenium scraper extracting 42K 3D dental-arch meshes from an unreliable upstream; Blender-Cycles headless renderer producing >1M photorealistic stereo training pairs with GD&T-grounded domain randomization; RAFT-Stereo (PyTorch) disparity-mapping training setup. Designed the downstream disparity-to-point-cloud ICP CT-alignment overlay for real-time surgical loupe display.",
+      "key_terms": [
+        "computer vision",
+        "stereo vision",
+        "synthetic data generation",
+        "blender cycles",
+        "raft-stereo",
+        "pytorch",
+        "domain randomization",
+        "icp registration",
+        "point cloud",
+        "medical imaging",
+        "selenium",
+        "web scraping",
+        "disparity mapping",
+        "ar overlay",
+        "surgical navigation"
+      ],
+      "source_mtime": 1777544832
+    },
+    "tesla": {
+      "summary": "Drove 400% increase in Tesla Optimus humanoid hand production throughput for data-collection fleets via three tracks: Jira-based failure-mode tracking system coordinating 8 technicians and 10-12 labelers; cross-functional engineering reviews directing mitigation at highest-impact failures; mechanical redesigns (repairability, parallel assembly jigs) and rewritten build documentation. Designed a novel single-piece dual-coil extension spring for Optimus 2-segment fingers, tuning MCP and PIP joints independently from one continuous wire component. Built a fully vectorized spring-optimization tool that evaluated ~30M designs across 7 parameters, scoring on angular acceleration, fatigue life (S-N curves, Shigley's equations), manufacturability, and form-factor fit. Tool remains in active use as finger architecture evolves.",
+      "key_terms": [
+        "humanoid robotics",
+        "robot hardware",
+        "mechanical design",
+        "process optimization",
+        "manufacturing throughput",
+        "failure mode analysis",
+        "vectorized optimization",
+        "production scaling",
+        "numpy",
+        "data collection infrastructure",
+        "multidisciplinary engineering",
+        "robot hands",
+        "spring design"
+      ],
+      "source_mtime": 1777517145
+    },
+    "neu-rover": {
+      "summary": "Designed and led development of a 6-DOF robotic arm for a 50kg rover competing internationally (13th/99 teams). Responsibilities included field-serviceable mechanical design, subsystem integration across arm, drivetrain, chassis, and science payload, and team leadership for the University Rover Challenge in Utah.",
+      "key_terms": [
+        "robotic arm",
+        "6-dof",
+        "mechanical design",
+        "robotics",
+        "system integration",
+        "field-serviceable",
+        "team lead",
+        "controls",
+        "subsystem integration",
+        "servo control",
+        "mechanical engineering",
+        "robotics competition"
+      ],
+      "source_mtime": 1777505282
+    },
+    "draper": {
+      "summary": "Overhauled IMU-characterization test fixture software at Draper Lab, replacing legacy stack with Python, serial protocol layer, Qt GUI, and automated error-handling library. Implemented retry-with-backoff, exception categorization, watchdog-based re-init, and explicit exception propagation. Reduced daily failures to zero over multi-year production run. Also designed data visualization suite and led end-to-end mech+elec+sw development of guidance system demonstrator for client demos and training.",
+      "key_terms": [
+        "python",
+        "qt gui",
+        "serial communications",
+        "embedded systems",
+        "imu",
+        "instrumentation",
+        "test fixture",
+        "error handling",
+        "watchdog",
+        "firmware",
+        "control systems",
+        "data visualization",
+        "json",
+        "guidance systems",
+        "hardware-software integration"
+      ],
+      "source_mtime": 1777517448
+    },
+    "mantis": {
+      "summary": "Designed and shipped a 3-axis serial robotic arm for stereoscopic surgical camera positioning, owning hardware (joint assemblies, industrial casing, structural FEA) and software (C++ control algorithms, Linux joystick driver). Led a 6-week exploratory 6-axis Delta-type parallel-kinematic prototype; identified inherent kinematic over-constraint in (x,y,z,pitch,roll) with free yaw drift, killed the architecture, and channeled lessons into the production serial design. Unix scripting for field deployment and system install.",
+      "key_terms": [
+        "robotic arm",
+        "surgical robotics",
+        "inverse kinematics",
+        "serial arm",
+        "delta robot",
+        "c++",
+        "embedded systems",
+        "linux drivers",
+        "fea",
+        "stereoscopic imaging",
+        "hardware-software integration",
+        "medical device",
+        "robotics control"
+      ],
+      "source_mtime": 1777517817
+    },
+    "infinite-cooling": {
+      "summary": "Rebuilt customer DAQ codebase with interdisciplinary team: standardized sensor abstraction, added structured logging, fixed field reliability issues. Designed and built a cam-driven vibrational fatigue test rig to qualify HV cooling-tower wire specs against Aeolian (Karman vortex-induced) vibration — used accelerometers on production towers to capture real field spectra, replicated excitation on rig (cam chosen over EM shaker for large-displacement regime). Instrumented single-wire test article with strain gauges and resistance monitoring for head-to-head multi-spec comparison. Delivered rig; test campaign running at internship end.",
+      "key_terms": [
+        "data acquisition",
+        "sensor abstraction",
+        "structured logging",
+        "vibration testing",
+        "fatigue testing",
+        "aeolian vibration",
+        "karman vortex shedding",
+        "cam-driven excitation",
+        "high-voltage",
+        "strain gauges",
+        "accelerometers",
+        "wire qualification",
+        "mechanical design",
+        "instrumentation",
+        "cooling tower"
+      ],
+      "source_mtime": 1777519515
+    },
+    "formulatrix": {
+      "summary": "TECHNICAL PROJECT MANAGER + ROBOTICS ENGINEER at Formulatrix (lab automation hardware). Built Bayesian-optimization control-tuning framework (Python/BoTorch/PySINDy/GPyTorch) replacing hand-tuned PID/feedforward gains, deployed on microfluidic dispensers and cart-pendulum robotics platforms. Led end-to-end development of 144-plate SBS-format storage carousel from concept to first customer PO in 8 months (direct-drive servo, kinematic caddies, barcode scanning); demoed at SLAS 2026 generating 20+ leads. Built heterogeneous lab-monitoring system integrating GigE Vision/RTSP/ONVIF cameras with lock-free shared-memory ring buffer transport. Developed high-speed optical droplet measurement pipeline (50 nL resolution, 15% accuracy) and automated microbalance loop closing the BO tuning cycle end-to-end. Cross-functional international team leadership across ME/EE/SE cohorts. Leading internal AI-code-generation initiatives: piloting Cursor/Claude/Codex across a 10-20-engineer SE-III cohort with structured prompt + review protocols, advising the FSE-deployed RAG support bot (trained on tens of thousands of tickets), driving marketing-team AI workflows for lead generation, delivering company-wide management lessons on prompt engineering, and pushing product-roadmap directives to leadership to make Formulatrix instruments first-class in customer AI-driven automation workflows.",
+      "key_terms": [
+        "bayesian optimization",
+        "robotics",
+        "control systems",
+        "lab automation",
+        "botorch",
+        "gpytorch",
+        "pysindy",
+        "system identification",
+        "pid control",
+        "computer vision",
+        "opencv",
+        "fastapi",
+        "docker",
+        "gige vision",
+        "microfluidics",
+        "motion control",
+        "product management",
+        "project management",
+        "slas 2026",
+        "instrument control",
+        "high-speed imaging",
+        "droplet measurement",
+        "hardware-software integration",
+        "distributed systems",
+        "ai code generation leadership",
+        "ai adoption initiatives",
+        "cross-functional ai enablement",
+        "prompt engineering training",
+        "rag system advisory",
+        "ai product strategy",
+        "developer tooling rollout",
+        "internal ai workflow design"
+      ],
+      "source_mtime": 1777545897
+    },
+    "behuman": {
+      "summary": "Product Owner at BeHuman since June 2026. Owns the patient interface and patient-chart analysis optimization, translating patient and clinical needs into priorities, requirements, acceptance criteria, AI-feature evaluation, and cross-functional delivery.",
+      "key_terms": [
+        "product ownership",
+        "patient experience",
+        "clinical AI",
+        "evaluation",
+        "workflow design"
+      ]
+    }
+  },
+  "projects": {
+    "ai-assistant": {
+      "summary": "End-to-end personal AI-assistant platform built solo: real-time voice agent with a dual-agent train-of-thought + speaker architecture and HMM-based turn-end predictor using VoxConverse + AMI corpora; local multi-agent LLM stack on Apple-Silicon MLX with lazy-loaded Whisper STT and Kokoro TTS; speculative reasoning pipeline for near-zero-latency TTS startup; multi-channel TypeScript/Node gateway (Discord-text, Telegram, Slack, Signal, iMessage, MS Teams, Matrix) with Plugin SDK, MCP runtime-swap, and strict TypeBox schemas; SQLite + Obsidian FTS5 semantic memory; autonomous research digest pipeline (arXiv, RSS, Twitter) with MiniMax article synthesis; autonomous job-application subsystem with LaTeX resume tailoring. TypeScript + Python monorepo.",
+      "key_terms": [
+        "voice agent",
+        "hmm turn-end predictor",
+        "apple silicon mlx",
+        "speculative reasoning",
+        "dual-agent architecture",
+        "mcp integration",
+        "typescript monorepo",
+        "plugin sdk",
+        "real-time voice",
+        "whisper stt",
+        "kokoro tts",
+        "multi-channel routing",
+        "discord bot",
+        "obsidian integration",
+        "ai research pipeline"
+      ],
+      "source_mtime": 1777545395
+    },
+    "trading-algo": {
+      "summary": "Co-led a 3-engineer team building Sovlscan, a Solana trading terminal spanning blockchain ingestion to ML-driven trading signals to a customer-facing UI over 16 months. Designed the proof-of-concept Bayesian regime/change-point detection algorithm, region taxonomy, and ground-truth label-generation methodology that anchors the strategy stack. Built the trading terminal frontend (React, D3/Three.js BubbleMaps, lightweight-charts) and FastAPI backend with multi-auth (SIWS, OAuth, JWT), WebSocket streaming, and Redis state. Contributed to data infrastructure: 41x write-throughput improvement in TimescaleDB ETL, ClickHouse landing zone (400B+ rows, 500+ slots/sec, 100+ DeFi protocols), and resumable distributed backfill across 4 machines. Ensemble combines Bayesian regime detection (Numba-accelerated DP), tree-based supervised signals, and LLM-as-research-analyst. Simulation-mode execution via Jupiter/Raydium/Meteora adapters.",
+      "key_terms": [
+        "solana",
+        "blockchain",
+        "crypto trading",
+        "algorithmic trading",
+        "quantitative finance",
+        "bayesian methods",
+        "bayesian optimization",
+        "change-point detection",
+        "regime detection",
+        "machine learning",
+        "llm integration",
+        "distributed systems",
+        "rust",
+        "python",
+        "react",
+        "fastapi",
+        "clickhouse",
+        "timescaledb",
+        "etl",
+        "full-stack",
+        "websocket",
+        "high-frequency trading",
+        "defi",
+        "trading terminal"
+      ],
+      "source_mtime": 1777545479
+    },
+    "tetris-bot": {
+      "summary": "Evolved Tetris AI through three ML architectures (frame-MLP, step-MLP, place-style linear evaluator) as team lead on a CS capstone. Final solution: linear evaluator over 9 board features x 5 polynomial bases (45 trained weights). Implemented proper gradient descent with analytically derived backward-pass derivatives, wrapped in EA with population-based search (100-pop, top-40 truncation), lineage-aware selection capping any ancestor to 30% of next-gen children, and log-normal score modeling for long-game survival. AIC-adaptive evaluation budget, snapshot-based resumable evaluation.  Pure NumPy active solution; PyTorch used in abandoned MLP branches.",
+      "key_terms": [
+        "machine learning",
+        "evolutionary algorithms",
+        "neuroevolution",
+        "gradient descent",
+        "feature engineering",
+        "pytorch",
+        "optimization",
+        "simulation",
+        "parallel computing",
+        "game ai",
+        "hyperparameter tuning",
+        "lineage control",
+        "population-based search",
+        "log-normal modeling"
+      ],
+      "source_mtime": 1777546119
+    },
+    "en-passant": {
+      "summary": "Led 5-person capstone team building autonomous chessboard with motorized under-board piece movement and per-square piece identification. Implemented CoreXY belt-driven gantry with A* path planner routing pieces around occupied squares on 8x8 board. Designed custom 80-channel capacitive sensor PCB (KiCad, ESP32 hardware touch + 16:1 mux array) reading type-coded copper-pad tags at ~17 Hz; host-side Kalman filtering and GMM peak fitting extracts sub-pixel piece centers at ~2.5mm accuracy. Built dual Keras/PyTorch regression CNN with custom permutation-invariant Hungarian-style loss trained on 472MB synthetic dataset (15-frame sequences, 300 epochs) to regress up to 32 piece coordinates per frame. Integrated Lichess API via berserk for bidirectional online-play. R&D'd PCB-stator electromagnetic drive with Biot-Savart field simulation and on-hardware thermal characterization.",
+      "key_terms": [
+        "robotics",
+        "hardware",
+        "machine learning",
+        "sensors",
+        "embedded systems",
+        "pcb design",
+        "computer vision",
+        "leadership",
+        "motion control",
+        "path planning",
+        "neural network",
+        "pytorch",
+        "tensorflow",
+        "keras",
+        "kicad",
+        "esp32",
+        "stepper motor",
+        "arduino",
+        "python",
+        "c",
+        "capacitive sensing",
+        "kalman filter",
+        "signal processing",
+        "cad",
+        "solidworks",
+        "jira",
+        "autonomous systems"
+      ],
+      "source_mtime": 1777545103
+    },
+    "ornithopter": {
+      "summary": "Designed and optimized a 2-DOF spatial shoulder linkage for a flapping-wing ornithopter (Daedalus/MRK4), converting a single BLDC motor into synchronized stroke and feathering outputs via a 5-link spatial chain. Built a custom Particle-Swarm Optimizer (6 variables, 20 particles x 100 iterations) with parallel hyperparameter grid search (81 combos via multiprocessing.Pool) to match a target 45-degree sinusoidal stroke profile. Productionized the linkage as a runtime AoA-trim toolchain: 181x181 forward-kinematic lookup table (scipy.fsolve multi-seed branch selection), interactive Tk GUI curve picker, cyclic 5th-order polynomial fit with first-derivative continuity constraints, Arduino firmware with AS5600 magnetic encoder, Kalman-filtered RPM feedback, and multiMap interpolation controlling BLDC ESC plus 2 servos. CAD in Autodesk Inventor with McMaster hardware. The linkage was built and tested.",
+      "key_terms": [
+        "robotics",
+        "mechanical design",
+        "particle swarm optimization",
+        "forward kinematics",
+        "arduino",
+        "embedded systems",
+        "bldc motor control",
+        "inverse kinematics",
+        "optimization",
+        "linkage design",
+        "real-time control",
+        "kalman filter",
+        "inventor cad",
+        "numpy",
+        "scipy"
+      ],
+      "source_mtime": 1777521217
+    },
+    "unify": {
+      "summary": "Detailed personal Bonsai voice-agent and inference research: reusable shared-prefill roles, interim-ASR plan updates and branch extension, speculation/batching tradeoffs, shared recurrent rollback state, quantized elastic KV, allocation transients, clause/sentence audio stitching, barge-in and heard history, compaction, Jev risk escalation, and qualified same-endpoint replay measurement.",
+      "key_terms": [
+        "voice agent",
+        "kv cache",
+        "speculative decoding",
+        "inference",
+        "systems",
+        "evaluation"
+      ],
+      "source_mtime": 1793119364
+    },
+    "deception-probes": {
+      "summary": "Independent deception and refusal probe research. Controlled Qwen3 experiments compare within-task accuracy, cross-task inversions, framing and corpus confounds, layer stability, ensemble baselines, self-generation controls, and behavioral refusal labels. Retained 8B comparison: mean off-diagonal AUROC 0.602 deception versus 0.877 same-corpus refusal. Goal-based causal interventions remain a proposal.",
+      "key_terms": [
+        "ai safety",
+        "interpretability",
+        "linear probes",
+        "qwen3",
+        "experimental controls"
+      ],
+      "source_mtime": 1793119364
+    },
+    "mlx-fast": {
+      "summary": "Apple M4 Max inference study: original 25-technique inventory with 12 useful paths across compiled quantized attention, MoE execution, physical KV trimming, recurrent state, speculative decoding, prompt caching, and scheduling. Discusses negative results and later isolated remeasurements; does not treat stacked-stack gains as standalone or generalize to AMD.",
+      "key_terms": [
+        "mlx",
+        "apple silicon",
+        "kv cache",
+        "metal",
+        "quantization",
+        "benchmarking"
+      ],
+      "source_mtime": 1793119364
+    }
+  },
+  "generated_at": "2026-10-27T16:43:23.256598+00:00"
+}

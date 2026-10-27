@@ -1,0 +1,40 @@
+# Dependencies, builds, generated types, and tests
+/node_modules/
+/.next*
+/out/
+/build/
+/coverage/
+*.tsbuildinfo
+next-env.d.ts
+.DS_Store
+
+# Local configuration and credentials; only the empty public template is tracked
+.env
+.env.*
+!.env.docker.example
+/docker-compose.override.yml
+
+# Runtime stores and private candidate fields
+/data/*
+!/data/candidate/
+!/data/copy.ts
+/data/candidate/personal.json
+/BEN_CONTEXT.md
+
+# Assistant state and local authoring sources
+/.claude/
+/.gemini/
+/remotion/
+/remotion.config.ts
+/scripts/render-animations.mjs
+
+# Historical startup-internal illustrations are not public source
+/public/media/projects/prsm-ai/
+
+# Local artifacts and backups
+*.log
+*.bak
+*.backup
+*.bundle
+*.safetensors
+*.gguf

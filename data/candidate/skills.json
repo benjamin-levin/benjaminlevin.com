@@ -1,0 +1,146 @@
+{
+  "categories": [
+    {
+      "name": "Programming Languages & OS",
+      "skills": [
+        {"name": "Python", "tags": ["ml", "ai", "scripting", "data", "always"]},
+        {"name": "C++", "tags": ["systems", "lowlevel", "robotics", "performance"]},
+        {"name": "Rust", "tags": ["systems", "lowlevel", "performance", "blockchain"]},
+        {"name": "C", "tags": ["systems", "lowlevel", "embedded"]},
+        {"name": "JavaScript / JSX", "tags": ["frontend", "web"]},
+        {"name": "TypeScript", "tags": ["frontend", "web"]},
+        {"name": "SQL", "tags": ["data", "backend"]},
+        {"name": "Bash / Unix", "tags": ["systems", "infra", "scripting"]},
+        {"name": "MATLAB", "tags": ["scientific", "control"]},
+        {"name": "Java", "tags": ["enterprise", "general"]},
+        {"name": "Kotlin", "tags": ["mobile", "jvm"]},
+        {"name": "Racket", "tags": ["academic", "fp"]},
+        {"name": "Assembly", "tags": ["lowlevel", "performance", "embedded"]},
+        {"name": "LabView", "tags": ["hardware", "instrumentation"]},
+        {"name": "Linux / Ubuntu", "tags": ["systems", "infra"]}
+      ]
+    },
+    {
+      "name": "ML / Data / Optimization Frameworks",
+      "skills": [
+        {"name": "NumPy", "tags": ["ml", "data", "scientific", "always"]},
+        {"name": "Pandas", "tags": ["data", "ml"]},
+        {"name": "Polars", "tags": ["data", "performance"]},
+        {"name": "SciPy", "tags": ["scientific", "optimization"]},
+        {"name": "scikit-learn", "tags": ["ml", "classical"]},
+        {"name": "Numba", "tags": ["performance", "ml", "scientific"]},
+        {"name": "PyTorch", "tags": ["ml", "deeplearning"]},
+        {"name": "TensorFlow / Keras", "tags": ["ml", "deeplearning"]},
+        {"name": "BoTorch", "tags": ["ml", "bayesian", "optimization"]},
+        {"name": "GPyTorch", "tags": ["ml", "bayesian"]},
+        {"name": "PySINDy", "tags": ["scientific", "system-identification"]},
+        {"name": "OpenCV", "tags": ["cv", "perception"]},
+        {"name": "Blender / bpy", "tags": ["3d", "rendering", "synthetic-data"]},
+        {"name": "Selenium", "tags": ["web-scraping", "automation"]},
+        {"name": "RAFT-Stereo", "tags": ["cv", "stereo", "deeplearning"]},
+        {"name": "Apache Arrow / Arrow Flight", "tags": ["data", "performance"]}
+      ]
+    },
+    {
+      "name": "Web / Backend / Frontend",
+      "skills": [
+        {"name": "FastAPI", "tags": ["backend", "python"]},
+        {"name": "React", "tags": ["frontend", "web"]},
+        {"name": "Qt / PyQt", "tags": ["desktop", "ui"]},
+        {"name": "WebSockets", "tags": ["realtime", "backend"]},
+        {"name": "SQLAlchemy", "tags": ["backend", "orm"]},
+        {"name": "Alembic", "tags": ["backend", "migrations"]},
+        {"name": "Pydantic", "tags": ["backend", "validation"]},
+        {"name": "structlog", "tags": ["backend", "observability"]},
+        {"name": "D3", "tags": ["frontend", "visualization"]},
+        {"name": "lightweight-charts", "tags": ["frontend", "finance", "visualization"]},
+        {"name": "nginx", "tags": ["infra", "web"]},
+        {"name": "Caddy / mTLS", "tags": ["infra", "security"]},
+        {"name": "OAuth / JWT / SIWS", "tags": ["auth", "security"]}
+      ]
+    },
+    {
+      "name": "Data Engineering & Databases",
+      "skills": [
+        {"name": "ClickHouse", "tags": ["data", "analytics", "olap"]},
+        {"name": "TimescaleDB", "tags": ["data", "timeseries"]},
+        {"name": "Postgres", "tags": ["data", "infra", "backend"]},
+        {"name": "Redis", "tags": ["infra", "backend", "cache"]},
+        {"name": "SQLite", "tags": ["data", "embedded"]},
+        {"name": "DVC", "tags": ["data", "ml-ops"]},
+        {"name": "Parquet", "tags": ["data", "columnar"]}
+      ]
+    },
+    {
+      "name": "Infrastructure & DevTools",
+      "skills": [
+        {"name": "Git", "tags": ["devtools", "always"]},
+        {"name": "Docker / Docker Compose", "tags": ["infra", "devops"]},
+        {"name": "Mise", "tags": ["devtools"]},
+        {"name": "Jira", "tags": ["pm", "devtools"]},
+        {"name": "MCP (Model Context Protocol)", "tags": ["ai", "devtools"]},
+        {"name": "Cursor / Claude / Codex (AI coding)", "tags": ["ai", "devtools"]},
+        {"name": "multiprocessing / asyncio", "tags": ["python", "performance"]},
+        {"name": "cProfile / py-spy", "tags": ["python", "profiling"]},
+        {"name": "Prometheus / Grafana", "tags": ["observability", "infra"]}
+      ]
+    },
+    {
+      "name": "Robotics & Embedded Systems",
+      "skills": [
+        {"name": "ROS", "tags": ["robotics", "middleware"]},
+        {"name": "Arduino", "tags": ["embedded", "hardware"]},
+        {"name": "ESP32 / ESP-IDF", "tags": ["embedded", "iot"]},
+        {"name": "MuJoCo", "tags": ["robotics", "simulation"]},
+        {"name": "Gymnasium", "tags": ["robotics", "simulation", "rl"]},
+        {"name": "PyBullet", "tags": ["robotics", "simulation"]},
+        {"name": "AS5600 / Encoders / Servos", "tags": ["embedded", "hardware"]},
+        {"name": "GigE Vision / Sentech / stapipy", "tags": ["embedded", "cv"]},
+        {"name": "Frigate / RTSP / ONVIF", "tags": ["embedded", "cv", "video"]}
+      ]
+    },
+    {
+      "name": "Blockchain",
+      "skills": [
+        {"name": "Anza Jetstreamer / Geyser plugin", "tags": ["blockchain", "solana"]},
+        {"name": "Yellowstone gRPC", "tags": ["blockchain", "solana"]},
+        {"name": "Solana / DeFi protocols", "tags": ["blockchain", "quant"]}
+      ]
+    },
+    {
+      "name": "Hardware Design / CAD / Simulation",
+      "skills": [
+        {"name": "SolidWorks", "tags": ["cad", "mechanical"]},
+        {"name": "Inventor", "tags": ["cad", "mechanical"]},
+        {"name": "KiCad", "tags": ["pcb", "ee"]},
+        {"name": "FEA / Structural Analysis", "tags": ["mechanical", "simulation"]},
+        {"name": "GD&T", "tags": ["mechanical", "manufacturing"]},
+        {"name": "Biot-Savart / Electromagnetic Simulation", "tags": ["physics", "simulation"]},
+        {"name": "Vibration / Fatigue Test Rig Design", "tags": ["mechanical", "test-engineering"]}
+      ]
+    },
+    {
+      "name": "Methods & Domain Knowledge",
+      "skills": [
+        {"name": "Bayesian Optimization", "tags": ["optimization", "ml"]},
+        {"name": "Particle Swarm Optimization", "tags": ["optimization", "metaheuristic"]},
+        {"name": "Evolutionary Algorithms / Neuroevolution", "tags": ["optimization", "metaheuristic", "ml"]},
+        {"name": "Bayesian Methods / Empirical Bayes", "tags": ["statistics", "ml"]},
+        {"name": "Change-Point Detection / Regime Inference", "tags": ["statistics", "timeseries", "quant"]},
+        {"name": "Kalman Filtering", "tags": ["statistics", "estimation", "control"]},
+        {"name": "ICP / Point Cloud Registration", "tags": ["cv", "robotics"]},
+        {"name": "GMM / Mixture Models", "tags": ["statistics", "ml"]},
+        {"name": "PID + Feedforward Control", "tags": ["control", "robotics"]},
+        {"name": "System Identification (sparse / SINDy)", "tags": ["control", "scientific"]},
+        {"name": "Forward / Inverse Kinematics", "tags": ["robotics", "math"]},
+        {"name": "Computer Vision", "tags": ["ml", "perception"]},
+        {"name": "Stereo Vision / Disparity Mapping", "tags": ["cv", "ml"]},
+        {"name": "Domain Randomization / Synthetic Training Data", "tags": ["ml", "cv"]},
+        {"name": "Failure Mode Analysis / FMEA", "tags": ["mechanical", "process"]},
+        {"name": "Quantitative / Algorithmic Trading", "tags": ["quant", "finance"]},
+        {"name": "RAG / LLM Integration", "tags": ["ai", "ml"]},
+        {"name": "Prompt Engineering / AI Workflow Design", "tags": ["ai", "leadership"]}
+      ]
+    }
+  ]
+}

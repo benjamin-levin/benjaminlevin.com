@@ -1,0 +1,51 @@
+{
+  "name": "benjaminlevin-website",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "node scripts/build-context.mjs && next dev -p 3003",
+    "dev:onlook": "node scripts/build-context.mjs && next dev --webpack -p 3003",
+    "prebuild": "node scripts/build-context.mjs",
+    "build": "next build",
+    "build-context": "node scripts/build-context.mjs",
+    "remotion:studio": "remotion studio",
+    "remotion:render-all": "node scripts/render-animations.mjs",
+    "start": "next start -p 3003",
+    "lint": "eslint",
+    "docker:full:up": "PROJECT_NAME=blevin-local WEB_PORT=3003 ./scripts/local-stack.sh up",
+    "docker:full:down": "PROJECT_NAME=blevin-local WEB_PORT=3003 ./scripts/local-stack.sh down",
+    "docker:full:ps": "PROJECT_NAME=blevin-local WEB_PORT=3003 ./scripts/local-stack.sh ps",
+    "docker:up": "npm run docker:full:up",
+    "docker:down": "npm run docker:full:down",
+    "docker:deploy:up": "docker-compose --project-name blevin-live --env-file .env.docker -f docker-compose.yml -f docker-compose.deploy.yml up -d --build",
+    "docker:deploy:down": "docker-compose --project-name blevin-live --env-file .env.docker -f docker-compose.yml -f docker-compose.deploy.yml down"
+  },
+  "dependencies": {
+    "better-sqlite3": "^12.6.2",
+    "d3-drag": "^3.0.0",
+    "d3-force": "^3.0.0",
+    "d3-selection": "^3.0.0",
+    "next": "16.1.6",
+    "react": "19.2.3",
+    "react-dom": "19.2.3"
+  },
+  "devDependencies": {
+    "@onlook/nextjs": "^2.1.1",
+    "@remotion/bundler": "^4.0.455",
+    "@remotion/cli": "^4.0.455",
+    "@tailwindcss/postcss": "^4",
+    "@types/better-sqlite3": "^7.6.13",
+    "@types/d3-drag": "^3.0.7",
+    "@types/d3-force": "^3.0.10",
+    "@types/d3-selection": "^3.0.11",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.1.6",
+    "remotion": "^4.0.455",
+    "tailwindcss": "^4",
+    "tweakpane": "^4.0.5",
+    "typescript": "5.9.3"
+  }
+}

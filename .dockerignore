@@ -1,0 +1,26 @@
+node_modules
+.next
+.git
+.env*.local
+.env.docker
+# Remotion source — animations are pre-rendered to public/media/animations/
+# and committed; the Remotion source itself doesn't need to be in the image.
+remotion
+remotion.config.ts
+scripts/render-animations.mjs
+# Runtime artifacts only — keep data/candidate/ which the build needs.
+data/site.db
+data/site.db-wal
+data/site.db-shm
+/tmp
+*.log
+
+# Local assistant state and superseded startup-internal illustrations
+.claude
+.gemini
+public/media/projects/prsm-ai
+.env
+.env.*
+
+# Public professional data is the image input; private local fields stay local.
+data/candidate/personal.json
