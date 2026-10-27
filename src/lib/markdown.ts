@@ -106,8 +106,10 @@ function inline(s: string): string {
       return `<video src="${url}" autoplay controls muted loop playsinline preload="metadata" class="md-video${sizeClass}" aria-label="${altSafe}"></video>` +
         (altClean ? `<span class="md-caption">${altSafe}</span>` : "");
     }
-    return `<img src="${url}" alt="${altSafe}" loading="lazy" class="md-img${sizeClass}" />` +
-      (altClean ? `<span class="md-caption">${altSafe}</span>` : "");
+    const image = `<img src="${url}" alt="${altSafe}" loading="lazy" class="md-img${sizeClass}" />`;
+    const fullSize = url.startsWith("/media/case-studies/");
+    return (fullSize ? `<a href="${url}" target="_blank" rel="noopener noreferrer" aria-label="Open figure at full size">${image}</a>` : image) +
+      (altClean ? `<span class="md-caption">${altSafe}${fullSize ? ` <a class="md-full-size" href="${url}" target="_blank" rel="noopener noreferrer">Open full size ↗</a>` : ""}</span>` : "");
   });
   // Bold + italic
   s = s.replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");

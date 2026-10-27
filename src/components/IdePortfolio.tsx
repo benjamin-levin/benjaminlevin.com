@@ -6,6 +6,7 @@ import { PreviewCard } from "@/components/PreviewCard";
 import { EXPERIENCE_HIGHLIGHTS, PROJECT_HIGHLIGHTS } from "@/lib/highlights";
 import { HighlightStrip } from "@/components/HighlightStrip";
 import { splitSubsections, renderMarkdown } from "@/lib/markdown";
+import { isSinglePageEntry } from "@/lib/detailPresentation";
 import { EdgeNav, type EdgeNeighbor } from "@/components/EdgeNav";
 
 // Type definitions to mirror what we get from loadAll
@@ -67,13 +68,12 @@ function buildFileOrder(
   out.push({ file: { type: "education" }, eyebrow: "/", title: "education.md" });
   out.push({ file: { type: "skills" }, eyebrow: "/", title: "skills.md" });
 
-  const FORCE_SINGLE = new Set(["mantis-health", "mantis", "mantis-dental", "draper", "infinite-cooling"]);
 
   for (const e of sortedExp) {
     const { sections } = splitSubsections(e.detail || "");
     const expEyebrow = `experiences / ${e.id}`;
     const expTitle = `${e.company} — ${e.role}`;
-    if (sections.length > 0 && !FORCE_SINGLE.has(e.id)) {
+    if (sections.length > 0 && !isSinglePageEntry(e.id)) {
       out.push({ file: { type: "experience", id: e.id, file: "overview.md" }, eyebrow: expEyebrow, title: `${expTitle} · overview` });
       for (const s of sections) {
         out.push({ file: { type: "experience", id: e.id, file: `${s.slug}.md` }, eyebrow: expEyebrow, title: `${expTitle} · ${s.title}` });
@@ -85,7 +85,7 @@ function buildFileOrder(
   for (const p of sortedProj) {
     const { sections } = splitSubsections(p.detail || "");
     const projEyebrow = `projects / ${p.id}`;
-    if (sections.length > 0) {
+    if (sections.length > 0 && !isSinglePageEntry(p.id)) {
       out.push({ file: { type: "project", id: p.id, file: "overview.md" }, eyebrow: projEyebrow, title: `${p.title} · overview` });
       for (const s of sections) {
         out.push({ file: { type: "project", id: p.id, file: `${s.slug}.md` }, eyebrow: projEyebrow, title: `${p.title} · ${s.title}` });
@@ -126,9 +126,9 @@ function parseFile(rawHash: string): ActiveFile | null {
   if (h === "skills.md" || h === "skills.json" || h === "skills") return { type: "skills" };
   if (h === "education.md" || h === "education") return { type: "education" };
   const expMatch = /^experiences\/([^/]+)\/(.+)$/.exec(h);
-  if (expMatch) return { type: "experience", id: expMatch[1], file: expMatch[2] };
+  if (expMatch) return { type: "experience", id: expMatch[1], file: isSinglePageEntry(expMatch[1]) ? "overview.md" : expMatch[2] };
   const projMatch = /^projects\/([^/]+)\/(.+)$/.exec(h);
-  if (projMatch) return { type: "project", id: projMatch[1], file: projMatch[2] };
+  if (projMatch) return { type: "project", id: projMatch[1], file: isSinglePageEntry(projMatch[1]) ? "overview.md" : projMatch[2] };
   return null;
 }
 
@@ -323,8 +323,9 @@ export function IdePortfolio({ personal, experiences, projects, skills, educatio
     if (!item || !("file" in activeFile)) return null;
     
     const { intro, sections } = splitSubsections(item.detail || "");
+    const forceSingleFile = isSinglePageEntry(item.id);
 
-    if (activeFile.file === "overview.md") {
+    if (activeFile.file === "overview.md" || forceSingleFile) {
       const isExp = type === "experience";
       const title = isExp ? `${item.company} — ${item.role}` : item.title;
       const eyebrow = item.team ?? item.location ?? item.role ?? undefined;
@@ -332,7 +333,6 @@ export function IdePortfolio({ personal, experiences, projects, skills, educatio
       const highlights = isExp ? (EXPERIENCE_HIGHLIGHTS[item.id] ?? []) : (PROJECT_HIGHLIGHTS[item.id] ?? []);
 
       // If it's a forced single-file, we want to render the ENTIRE detail string
-      const forceSingleFile = ['mantis-health', 'mantis', 'mantis-dental', 'draper', 'infinite-cooling'].includes(item.id);
       const contentToRender = forceSingleFile ? (item.detail || "") : intro;
 
       return (
@@ -345,7 +345,7 @@ export function IdePortfolio({ personal, experiences, projects, skills, educatio
               {title}
             </h1>
             
-            {highlights.length > 0 && (
+            {highlights.length > 0 && !forceSingleFile && (
               <div className="mb-10">
                 <h2 className="text-2xl font-bold mb-4 text-[color:var(--fg)]">## Highlights</h2>
                 <HighlightStrip
@@ -505,7 +505,7 @@ export function IdePortfolio({ personal, experiences, projects, skills, educatio
                 {sortedExp.map((e) => {
                   const { sections } = splitSubsections(e.detail || "");
                   const dateStr = formatRange(e.start, e.end);
-                  const forceSingleFile = ['mantis-health', 'mantis', 'mantis-dental', 'draper', 'infinite-cooling'].includes(e.id);
+                  const forceSingleFile = isSinglePageEntry(e.id);
                   
                   if (sections.length > 0 && !forceSingleFile) {
                     return renderFolder(e.id, `exp-${e.id}`, dateStr, (
@@ -530,7 +530,7 @@ export function IdePortfolio({ personal, experiences, projects, skills, educatio
                 {sortedProj.map((p) => {
                   const { sections } = splitSubsections(p.detail || "");
                   const dateStr = formatRange(p.start, p.end);
-                  if (sections.length > 0) {
+                  if (sections.length > 0 && !isSinglePageEntry(p.id)) {
                     return renderFolder(p.id, `proj-${p.id}`, dateStr, (
                       <>
                         {renderFileTreeItem("overview.md", { type: "project", id: p.id, file: "overview.md" }, "📄")}

@@ -28,7 +28,16 @@ Mantis Dental was building an AR-assisted oral-surgery system — affiliated wit
 **Root canal failure rates: ~14% overall, >50% on first molars.** Live CT-overlay would materially shift the surgeon's information envelope mid-procedure.
 :::
 
-The pipeline: scrape ground-truth 3D arch meshes → render synthetic stereo pairs in Blender Cycles → train RAFT-Stereo for disparity → lift to point cloud → ICP-register against the patient's pre-op CT → re-project the canal anatomy into the surgeon's custom in-house **4K low-latency digital loupes** in real time. I owned stages 1 and 2 and designed stage 3.
+| Pipeline stage | Approach | Delivery status at departure |
+| --- | --- | --- |
+| Mesh corpus | Session-resilient scraping, validation, and resume | Corpus built |
+| Synthetic supervision | Headless Blender Cycles stereo rendering with hardware-tolerance domain randomization | Synthesis pipeline built |
+| Disparity learning | RAFT-Stereo training on rendered pairs | Training setup delivered |
+| Anatomy overlay | Disparity → depth → point cloud → ICP alignment to pre-op CT → loupe display | Designed; not operational at departure |
+
+![Architecture overview: stereo training and planned anatomy overlay](/media/case-studies/legacy-experiences/mantis-dental-pipeline.svg)
+
+*The rendering pipeline generates synthetic training data. The planned overlay is not evidence of clinical validation.*
 
 :::stats
 - 42,000 arches · scraped from chronically unreliable upstream

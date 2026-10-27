@@ -33,7 +33,13 @@ I joined the Optimus Structures Team while the program was scaling its data-coll
 **400% increase in Optimus hand production throughput** — combined effect of failure-mode tracking, mechanical redesign for repairability, and rewritten documentation enabling parallel-build distribution.
 :::
 
-I stood up a Jira dashboard as the single source of truth for repair tickets, coordinating **8 repair technicians** and **10–12 mocap data labelers** so every failed hand was logged, classified, and tagged with a root-cause hypothesis. Weekly cross-functional reviews (mechanical, electrical, software, leadership) turned scattered bench knowledge into a prioritized engineering backlog. On the mechanical side I redesigned parts for repairability — eliminating manual deburring, swapping hand-screwed joints for snap-fit + structural adhesive, and building jigs that let one technician run two parallel builds. Rewritten step-by-step build manuals cut training from three shadow shifts to one and unlocked parallel work distribution across the bench.
+The reported throughput improvement came from three reinforcing tracks; no underlying production time series is presented here.
+
+| Track | Intervention | Operational result |
+| --- | --- | --- |
+| Failure visibility | Jira repair dashboard shared by repair technicians and mocap data labelers | Failed hands logged, classified, and tagged with a root-cause hypothesis |
+| Engineering prioritization | Weekly reviews across mechanical, electrical, software, and leadership | Bench observations translated into a prioritized mitigation backlog |
+| Repair and assembly | Parts redesigned for repairability, assembly jigs, and rewritten build manuals | Parallel builds and work distribution across the bench; reported training reduction from three shadow shifts to one |
 
 ![Tesla Optimus hand closeup](/media/experiences/tesla/optimus-hand-closeup.jpg)
 
@@ -45,10 +51,14 @@ Each 2-segment finger needs passive return-to-extended after grip release with h
 
 To pick the geometry, I built a fully vectorized NumPy tool sweeping **7 parameters** — wire diameter, material, per-side coil turns and outer diameters, and per-joint pulley diameters — across roughly **30 million candidate designs** in one batched pass. Each candidate was scored on effective angular acceleration (the human-like-dynamics figure of merit), fatigue life from S-N curves and Shigley's empirical spring equations, manufacturability against producible wire stock, and geometric fit. Vectorization was the load-bearing choice — it turned a per-candidate analysis into one array computation, making full-design-space sweeps tractable on a workstation.
 
-:::stats
-- 30M designs · 7 parameters · vectorized
-- 4-axis scoring · angular acceleration, fatigue life, manufacturability, fit
-:::
+| Design criterion | Evaluation used in the search |
+| --- | --- |
+| Grasp-release dynamics | Effective angular acceleration |
+| Durability | Fatigue-life estimate from S-N curves and empirical spring equations |
+| Manufacturability | Compatibility with producible wire stock |
+| Packaging | Fit within the finger envelope |
+
+*Search criteria describe model-based screening, not measured performance of every candidate.*
 
 ![Tesla Optimus Gen 2 hand pinching an egg](/media/experiences/tesla/gen2-hand-holding-egg.png)
 

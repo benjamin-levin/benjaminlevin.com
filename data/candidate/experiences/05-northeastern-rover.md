@@ -36,7 +36,15 @@ Led the arm sub-team designing a 6-DOF manipulator for the University Rover Chal
 
 ![Structural FEA on the arm — load cases for full extension and gripper-side payload](/media/experiences/neu-rover/arm-analysis.png)
 
-The end-effector went through several gripper iterations to balance grip force, sample-tube compatibility, and serviceability with the limited tooling we'd have in the Utah desert.
+The end-effector went through several gripper iterations to balance the competing requirements of field manipulation.
+
+| Requirement | Design question |
+| --- | --- |
+| Grip force | Can the gripper hold the objects required by the task? |
+| Sample-tube compatibility | Can it handle the science payload's tubes? |
+| Field serviceability | Can the team maintain it with the tooling available in Utah? |
+
+The CAD, analysis, and prototype images show the design work; the competition placing is a reported team outcome.
 
 ![Gripper iteration](/media/experiences/neu-rover/gripper-1.jpeg)
 

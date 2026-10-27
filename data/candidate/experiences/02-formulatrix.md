@@ -36,8 +36,6 @@ Formulatrix builds **laboratory automation hardware for biotech, pharma, and gen
 
 Hand-tuning PID and feedforward gains across many operating regimes is slow, brittle, and doesn't transfer cleanly between mechanical platforms. I built a **Python framework on BoTorch + GPyTorch + PySINDy** (178 tests across 42 modules) that replaces it with Bayesian optimization over a Gaussian-process surrogate, using PySINDy-derived sparse dynamics models to constrain the BO search to the parameters that actually matter. Two teams adopted it on entirely different mechanical hardware: the **FLO i8 PD positive-displacement microfluidic dispenser** and a **cart-double-pendulum balancing testbed**.
 
-![Bayesian-optimization loop: GP surrogate, confidence band, expected-improvement acquisition, sample points appearing iteratively](/media/experiences/formulatrix/formulatrix-bayes.mp4)
-
 #### Robust acquisition over operating contexts
 
 Standard Expected Improvement optimizes the *expected* outcome — fine in a stationary lab but ugly when the deployed instrument runs across a wide regime envelope (different solvent viscosities, different cart masses, different temperatures). Built **`RobustExpectedImprovement`** and **`RobustLogNEI`** acquisition functions that target the **worst case across operating contexts** rather than the mean. That's what makes the results actually deploy: a tuning that's "great on average" but breaks at one corner of the regime is a regression.
@@ -52,10 +50,10 @@ The framework is **registry-backed**: experiments, objective processors, simulat
 
 #### Discrete + continuous scheduling
 
-Control parameters can be scheduled per operating context two ways:
-
-- **Discrete static-bin scheduling** — per-bin optimal CP lookup tables, with **quantile auto-binning** so bin boundaries adapt to the data distribution rather than guessing.
-- **Continuous scheduling** — piecewise-linear parameter models for contexts where bin boundaries don't make sense.
+| Scheduling approach | Representation | Useful when |
+| --- | --- | --- |
+| Discrete static bins | Per-bin optimal control-parameter lookup tables; quantile auto-binning adapts boundaries to the data | Operating contexts can be grouped into distinct regimes |
+| Continuous | Piecewise-linear parameter models | Parameters need to vary across context boundaries |
 
 For equilibrium-to-equilibrium handoff problems (cart-double-pendulum's "transition from upright to inverted-down", or any source-to-target task), the framework supports **curriculum-learning transition pairs**: the tuner learns separate CPs per `(source_equilibrium, target_equilibrium)` pair so the controller has the right setpoint for every direction of transit.
 
@@ -118,6 +116,13 @@ The interesting parts beyond raw video plumbing are the operator-facing primitiv
 ### Droplet measurement system → automated gravimetric measurement
 
 To close the BO tuning loop on the microfluidic dispenser, I needed a fast, repeatable volume signal. Built it twice.
+
+| Measurement path | How it produces feedback | Project status |
+| --- | --- | --- |
+| Optical | Bright-field silhouette → axisymmetric volume reconstruction; checked against a microbalance | Built and validated; images and plots below document the approach |
+| Automated gravimetric | Dispense → weigh → score → propose the next control parameters | Productionized as the BO feedback loop |
+
+![Architecture overview: measurement feedback into control tuning](/media/case-studies/legacy-experiences/formulatrix-tuning.svg)
 
 #### v1 — optical, 5 kfps bright-field
 

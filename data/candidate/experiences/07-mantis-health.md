@@ -30,6 +30,11 @@ I joined out of high school in 2018 and stayed through early college (April 2022
 
 Led a company-sanctioned exploratory build of a 6-axis manipulation platform using **Delta-type parallel kinematics** adapted from 3D-printer architecture. The architectural pitch was strong on paper: three actuators driving three pairs of parallel forearms onto a shared end-effector plate gives you **mechanical averaging of joint error** (repeatability without per-joint hand-tuning), **all motors mounted at the base** (lighter moving mass, lower inertia, faster moves, no cabling running the length of a moving arm), and a much **smaller swept volume** than a serial arm of comparable reach — which mattered because the OR ceiling is low and the surgeon's working envelope is sacred.
 
+| Architecture | Reason to explore or select it | Observed project outcome |
+| --- | --- | --- |
+| Delta-type parallel prototype | Compact swept volume, base-mounted motors, and mechanical averaging of joint error | Bench testing exposed yaw drift; program stopped |
+| Serial camera arm | Predictable, well-constrained kinematics for deterministic camera positioning | Developed through reliability testing and field deployment |
+
 Concept to working prototype in **6 weeks**, scoped into three two-week blocks:
 
 - **Mechanical design** (weeks 1–2): three identical actuator-arm assemblies, a fixed base plate, a moving end-effector plate, and ball-jointed parallel forearms in between. Drove the joint geometry off available stepper torque and carbon-fiber rod stiffness numbers. Rapid CAD iteration to converge on a build that fit the camera mass at full extension.

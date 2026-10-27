@@ -24,6 +24,16 @@ tags: [quant, finance, crypto, solana, blockchain, ml, bayesian-methods, change-
 
 Sovlscan is a Solana on-chain trading terminal: full-chain ingestion, analytics, automated trading via Bayesian regime detection, customer-facing terminal UI. Live execution is simulation-only by default. Repo `bperritt/Sovlscan`. (Sovlscan is a separate company from PRSM AI — distinct projects, distinct teams.)
 
+
+| Area | My contribution | Shared system boundary |
+| --- | --- | --- |
+| Signal foundations | Initial regime-detection proof of concept, region definitions and label methodology | Team extended the production strategy |
+| Trading terminal | Frontend, backend, wallet-clustering interface and integration | Execution adapters and shared platform services |
+| Data path | Batch-insert rewrite, serving integration and checkpoint improvements | Team-owned ingestion and archival infrastructure |
+| Evaluation | Execution-simulation layer and integration | Strategy results stay private; simulation is the default |
+
+![Illustrative data-path schematic; architecture and ownership context, not a throughput measurement](/media/case-studies/legacy/sovlscan-data-path.svg)
+
 ### Data infrastructure
 
 Solana firehose → custom Rust **Jetstreamer** Geyser plugin → **ClickHouse 24.8** landing zone → **Python + Rust ETL** → **TimescaleDB PG16** serving layer → DAL (Arrow Flight) + RPC (WebSocket) → trading terminal. A single bare-metal box (AMD EPYC 9554P, 1.5 TiB DDR5 ECC, 4× 7 TB PM9A3 NVMe) runs an Agave mainnet-beta archival node alongside ClickHouse, with Jetstreamer tapping the live firehose.
@@ -69,6 +79,13 @@ My direct contributions to the data path: the **41× UNNEST rewrite** (`79bf1e33
 
 ### Strategy & ML
 
+| Signal family | Input / method | Role in the system |
+| --- | --- | --- |
+| Regime / change-point | Streaming price and liquidity history; Bayesian segmentation | Describe the current market regime |
+| Supervised trees | Engineered on-chain and market features | Produce a separately trained signal |
+| LLM research analyst | Templated token context and structured output | Add qualitative context to the scoring layer |
+| Execution gate | Combined signal and operator approval | Keep live-money execution separate from default simulation |
+
 The signal stack ensembles three well-established, deliberately orthogonal categories. Each channel is a different kind of evidence; the ensemble layer scores their combined output before anything reaches the execution gate.
 
 #### Channel 1 — Bayesian regime / change-point detection
@@ -95,7 +112,7 @@ A weighted-sum scoring layer combines the three channels into a single signal. *
 
 ### Trading terminal — my primary scope
 
-The customer-facing trading terminal: where signal output, on-chain context, and the swap layer meet a live operator. 83 JSX files in the frontend, a FastAPI backend, and three on-chain swap adapters under one auth surface.
+The customer-facing trading terminal: where signal output, on-chain context, and the swap layer meet a live operator. A React frontend, FastAPI backend, and on-chain swap adapters share one authentication surface.
 
 #### BubbleMaps — wallet-clustering as a visual fingerprint
 
@@ -103,7 +120,7 @@ The most visually distinctive panel. A force-directed graph of wallets (D3 layou
 
 #### Frontend stack
 
-`modules/dal_ui/frontend/` — **React 18 + plain JSX** (no TypeScript on the UI deliberately — fast iteration speed mattered more here than type guarantees). 83 JSX files. Key building blocks:
+`modules/dal_ui/frontend/` — **React 18 + plain JSX** (no TypeScript on the UI deliberately — fast iteration speed mattered more here than type guarantees). Key building blocks:
 
 - **`lightweight-charts` v5** — candle rendering at 60fps, gapless restore on WebSocket reconnect.
 - **Dockable panel system** — `OrderForm`, `SwapPanel`, `CandleChart`, `TradingPanel`, `BubbleMapPanel` are independent panels the operator drags / docks / hides per layout. Each panel owns its own data subscription and tears down cleanly when undocked.
@@ -135,9 +152,9 @@ The team builds a lot of code per developer-week because we use AI agents heavil
 
 The orchestration layer manages process lifecycle, working-directory isolation, and result fan-in.
 
-#### 6-agent expert profile system
+#### Specialist agent profiles
 
-Six pre-configured profiles, each with its own system prompt, tool surface, and model assignment:
+Specialist profiles each carry a focused system prompt, tool surface, and model assignment:
 
 | Profile | Scope |
 | --- | --- |

@@ -52,8 +52,8 @@ probe "$DOMAIN/project/trading-algo"                   "$DOMAIN/project/trading-
 
 echo ""
 echo "─── Media (sample) ────────────────────────────────────────────"
-probe "prsm-fsm.mp4"          "$DOMAIN/media/projects/prsm-ai/prsm-fsm.mp4"
-probe "tetris-training.mp4"   "$DOMAIN/media/projects/tetris-bot/tetris-training.mp4"
+probe "shared-prefill.svg"     "$DOMAIN/media/case-studies/unify/shared-prefill.svg"
+probe "tetris-placement.svg"   "$DOMAIN/media/case-studies/legacy/tetris-placement.svg"
 probe "tesla hand photo"      "$DOMAIN/media/experiences/tesla/hand-tactile-egg-demo.jpg"
 probe "headshot"              "$DOMAIN/media/profile/headshot.jpg"
 

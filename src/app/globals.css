@@ -114,6 +114,7 @@ body::after {
 .prose-tight pre code { background: none; border: none; padding: 0; color: var(--fg-muted); }
 .prose-tight table { border-collapse: collapse; margin: 1rem 0; font-size: 0.9rem; width: 100%; }
 .prose-tight .md-table-wrap { max-width: 100%; overflow-x: auto; }
+.prose-tight .md-full-size { display: inline-block; margin-left: 0.5rem; color: var(--accent); white-space: nowrap; }
 .prose-tight th, .prose-tight td { border: 1px solid var(--border); padding: 0.5rem 0.75rem; text-align: left; }
 .prose-tight th { background: rgba(255, 255, 255, 0.05); font-weight: 600; font-family: var(--mono); text-transform: uppercase; font-size: 0.8rem; }
 .prose-tight blockquote {

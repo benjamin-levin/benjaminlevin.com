@@ -24,6 +24,15 @@ tags: [robotics, hardware, ml, sensors, embedded, pcb-design, electromagnetics, 
 
 Capstone-style project to make remote online chess feel physical: the opponent's moves replay on a real board with real pieces, and the board reads back which piece sits where without cameras. I led a five-person ME / EE / CS team and ran the architecture, sensing stack, and EM-drive R&D personally.
 
+
+| Stage | Motion | Sensing | Status at pause |
+| --- | --- | --- | --- |
+| CoreXY prototype | Belt-driven magnetic cart with engagement lift | Separate capacitive array and passive piece tags | Built prototype; demonstrated motion and sensing work |
+| Linear-motor revision | Cart with absolute position feedback | Retain the capacitive array | Planned |
+| Shared-coil architecture | PCB-stator fields move pieces | Interleave actuation with low-energy probing | R&D and component experiments; PCB layout in progress |
+
+![Illustrative roadmap; planned revisions and shared-coil research are not completed systems](/media/case-studies/legacy/en-passant-roadmap.svg)
+
 ### Motion system
 
 The motion stack has a three-stage roadmap: each stage trades complexity for thinness and integration, ending at a single physical layer that does both motion and sensing.
@@ -117,7 +126,7 @@ A single coil can't simultaneously push amps and read millivolts, so the control
 
 The sense window has to be short relative to the cart's motion dynamics (so locomotion still feels continuous) but long enough for coil ringing to settle before the ADC samples.
 
-![Sensing modalities and time-multiplexed cycle](/media/projects/en-passant/en-passant-sensing.mp4)
+![Illustrative stage-3 concept: sensing modalities and time-multiplexed cycle; generated signals, not hardware measurements](/media/projects/en-passant/en-passant-sensing.mp4)
 
 #### Spatial encoding across multiple coils
 
@@ -128,6 +137,15 @@ Each coil reads a localized region, and overlapping fields produce a spatial sig
 The stage-3 approach sits at the intersection of magnetic manipulation systems, near-field RFID, impedance spectroscopy, and sensorless sensing in electromechanical systems. Closest neighbors: inductive metal detection, wireless-power-transfer coupling analysis, and RFID backscatter communication.
 
 ### ML piece localization
+
+| Part of the approach | Purpose | Evidence boundary |
+| --- | --- | --- |
+| Synthetic training data | Provide labeled piece-coordinate examples | Simulation data, not a physical-board accuracy benchmark |
+| Kalman filtering | Reduce noise in reconstructed readouts | Part of the documented sensing pipeline |
+| Regression CNNs | Predict piece coordinates from the reconstructed grid | PyTorch and Keras implementations described in the project account |
+| Permutation-invariant loss | Treat same-type pieces as interchangeable | Match predictions within type-counted groups |
+
+The accuracy figure below refers to simulated input; it should not be read as an independently measured board-level tolerance.
 
 The cross-talk grid feeds a Kalman noise filter and a regression CNN that predicts up to 32 piece coordinates per frame. A custom permutation-invariant Hungarian-style loss matches predictions to ground truth within type-counted groups, so identical pieces (8 pawns, etc.) are interchangeable. Trained on 472 MB of synthetic data; PyTorch and Keras stacks both ran, with ~2.5 mm sub-pixel accuracy on simulated input.
 
@@ -173,7 +191,7 @@ With identity *and* position emerging from the same coils, the control loop beco
 
 ### Coil hardware, signal processing, and tradeoffs
 
-![Coil hardware — drive / sense isolation and signal flow](/media/projects/en-passant/en-passant-coil-hardware.mp4)
+![Illustrative stage-3 concept: drive / sense isolation and signal flow; proposed hardware architecture](/media/projects/en-passant/en-passant-coil-hardware.mp4)
 
 #### Hardware requirements
 

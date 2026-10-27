@@ -38,3 +38,8 @@ next-env.d.ts
 *.bundle
 *.safetensors
 *.gguf
+
+# Superseded synthetic numerical-result animations (retained locally only)
+/public/media/projects/tetris-bot/tetris-training.mp4
+/public/media/projects/ornithopter/ornithopter-pso.mp4
+/public/media/experiences/formulatrix/formulatrix-bayes.mp4

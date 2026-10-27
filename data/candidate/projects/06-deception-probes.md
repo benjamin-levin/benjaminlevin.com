@@ -20,11 +20,23 @@ tags: [ai-safety, interpretability, deception, refusal, linear-probes, qwen3, tr
 
 ## Detail
 
-A classifier that reads a model's hidden state and reports a high deception score sounds like a promising safety mechanism. My research started with the question that has to come first: **what distinction did the classifier learn, and does that distinction survive outside the experiment that created it?**
+**Strong within-task detection did not imply a stable safety signal.** I tested what linear probes on Qwen3 activations were actually measuring, then compared deception transfer with refusal-related transfer under a common measurement recipe. The key result is a contrast in generalization—not a claim that either label names a universal mechanism.
 
-I studied lightweight linear probes on Qwen3 activations, then extended the work to refusal. The comparison is useful because the two stories are often told in opposite ways: deception may depend on a situation-specific representation, while refusal is sometimes described as a broadly shared direction. I wanted to test that contrast with a common pipeline rather than compare attractive numbers from unrelated setups.
+![Two six-by-six AUROC heatmaps. Deception transfer varies widely and includes inverted rankings; same-corpus refusal transfer is more consistent but includes one below-chance exception.](/media/case-studies/safety/transfer-matrices.svg)
 
-The most informative results came from controls that made the headline smaller. High accuracy could reflect instructions, writing style, assertion truth, or task-specific language. A detector's score is only useful after those alternatives have been taken seriously.
+*Rows train a probe; columns evaluate it. Outlined cells are within-task/category evaluations. Both panels share the same chance-centered 0–1 color scale. These are retained Qwen3-8B results at the fixed 65%-depth layer; different task sets and label meanings limit the comparison.*
+
+| Measured contrast | Within-task mean | Cross-task/category mean | Cross cells below chance |
+| --- | ---: | ---: | ---: |
+| Deception · length controlled | 0.928 | 0.602 | 10 / 30 |
+| Refusal contrast · same-corpus harmless class | 0.988 | 0.877 | 1 / 30 |
+| Refusal contrast · Alpaca harmless class | 1.000 | 1.000 | 0 / 30 |
+
+The perfect Alpaca result needed a better control: harmful and harmless classes came from different corpora. Matching both classes within BeaverTails lowered the score while preserving much of the cross-category signal. The deception matrix tells a different story: ten transfers reverse the ranking.
+
+![A four-stage measurement diagram: define labels, fit on the source task, evaluate unchanged on a new task, and separately test causal effects. Controls cover framing, source, behavioral meaning, structural nulls, selection fairness, and token count.](/media/case-studies/safety/measurement-controls.svg)
+
+*Stages 1–3 describe the measurement logic. Causal intervention is a separate proposed next step, not an achieved result.*
 
 ### The measurement: a direction is not an explanation
 
@@ -41,6 +53,17 @@ For the deception study, each task supplied a training contrast and every other 
 The comparison spans different forms of deception pressure rather than repeated variants of one prompt. I also tested layers and model sizes, separated within-task fitting from target-task evaluation, and examined controls for token count and instructions.
 
 This structure exposes a failure that a random train/test split within one dataset can hide. A task-specific classifier may generalize to new examples of the same task while remaining a poor monitor for a different kind of behavior.
+
+### What each control changed
+
+| Alternative explanation | Control or comparison | What the evidence supports |
+| --- | --- | --- |
+| Surrounding instructions identify the class | Hold the assistant statement constant while changing framing | Separation can reflect framing rather than an intentional falsehood |
+| Different token counts drive transfer | Length-controlled deception matrix; fixed template positions for refusal | Task structure persists after controlling sampled positions |
+| Corpus style identifies harmful examples | Replace Alpaca harmless examples with same-corpus BeaverTails examples | The original perfect result was over-optimistic |
+| Harmfulness is equivalent to refusal | Label model continuations for observed behavior | Adds a behavioral check; remains on the Alpaca-backed dataset |
+| An ensemble beats an unlucky layer | Freeze selection without target labels; compare fair single-layer rules | Gains shrink; held-out-task uncertainty spans no improvement |
+| Model authorship explains detection | Hold instructions fixed across text sources | No clear self-generation advantage survives the stronger controls |
 
 ### Prompt framing can masquerade as honesty
 
@@ -59,6 +82,10 @@ Some transfers reverse because the task changes what language accompanies the la
 This is a plausible explanation of a measured failure, not evidence that every inversion has the same cause. It illustrates why a monitor needs more than a plausible name for its activation direction.
 
 Token count was also a confound worth testing rather than merely mentioning. Equalizing the number of probed tokens did not dissolve the task structure; it made part of it clearer. A variable that looked like a possible source of the result had partly been masking it.
+
+![Every within-task and cross-task AUROC cell plotted individually for deception and matched refusal, with diamonds marking the four means and a dashed line at chance.](/media/case-studies/safety/transfer-distributions.svg)
+
+*Each circle is one cell from the matrices above, not an independent experimental replication. The diamonds are arithmetic means. This plot shows heterogeneity, not uncertainty across new fits, seeds, or datasets.*
 
 ### Layers, stability, and misleading model-size stories
 
@@ -99,12 +126,6 @@ The first harmless class came from Alpaca. The important control rebuilt it from
 With Alpaca as the harmless class, **every cell in the six-by-six matrix reached 1.000 AUROC**. That looks like a decisive result until the data construction is considered. Polished instructional Alpaca text and terse conversational BeaverTails text differ for reasons unrelated to refusal.
 
 Matching the harmless class within BeaverTails reduced the mean off-diagonal score to **0.877**, with a retained cell-bootstrap interval of approximately **0.828–0.917**. The decrease is evidence that the uncontrolled contrast was over-optimistic. It does not identify an exact percentage of a vector as “style” versus “harm.”
-
-| Contrast | Mean within-task AUROC | Mean cross-task/category AUROC | Off-diagonal cells below chance |
-| --- | --- | --- | --- |
-| Deception, length-controlled matrix | 0.928 | 0.602 | 10 / 30 |
-| Refusal contrast, Alpaca harmless set | 1.000 | 1.000 | 0 / 30 |
-| Refusal contrast, same-corpus harmless set | 0.988 | 0.877 | 1 / 30 |
 
 The supported observation is that **refusal-related discrimination transferred more consistently across these categories than deception-related discrimination transferred across these tasks**. It is not proof of a universal refusal direction, and it is not a causal removal experiment.
 

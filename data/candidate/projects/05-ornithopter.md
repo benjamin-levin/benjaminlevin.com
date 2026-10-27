@@ -24,6 +24,16 @@ ME capstone — a flapping-wing flying robot ("Daedalus / MRK4"). On a multi-per
 
 ![Ornithopter flapping — built prototype on the bench](/media/projects/ornithopter/flapping.mov)
 
+
+| Step | Engineering question | Output |
+| --- | --- | --- |
+| Linkage search | Which geometry produces the target stroke? | Optimized shoulder dimensions |
+| Forward kinematics | What AoA follows each motor and trim angle? | Lookup surface with branch selection |
+| Profile design | Which trim trajectory follows the desired AoA? | Smoothed cyclic profile exported to firmware |
+| Hardware execution | How does the profile track the flap cycle? | Encoder-referenced interpolation and actuator commands |
+
+![Illustrative shoulder-design toolchain; no measured optimization or lift curve](/media/case-studies/legacy/ornithopter-toolchain.svg)
+
 ### Why a flapping wing
 
 Fixed-wing aircraft trade maneuverability for endurance; quad-rotors trade endurance for maneuverability. A flapping wing sits in the middle — and (per Festo's SmartBird, the team's reference point) is dramatically quieter and more bird-like than a propeller. The target is a bird-like stroke profile with a fast downstroke for lift and a slower, feathered recovery.
@@ -41,8 +51,6 @@ The shoulder is the project's hardest mechanical problem: a single BLDC motor mu
 ### Particle-swarm optimization
 
 I wrote a custom particle-swarm optimizer in NumPy: 20 particles × 100 iterations across the 6 geometry variables, minimizing RMSE between the linkage-produced φ(θ) and a target asymmetric stroke. An 81-combo grid search over PSO inertia/cognitive/social coefficients ran in parallel via `multiprocessing.Pool` to pick the most reliable swarm dynamics. The winning geometry drove a parametric Inventor model directly into CAD.
-
-![PSO convergence — 20 particles settling onto the optimum in a 2D parameter slice](/media/projects/ornithopter/ornithopter-pso.mp4)
 
 :::stats
 - 6 design variables · R1, R2, L, Sx, Sy, Sz

@@ -180,7 +180,7 @@
       "source_mtime": 1777545897
     },
     "behuman": {
-      "summary": "Product Owner at BeHuman since June 2026. Owns the patient interface and patient-chart analysis optimization, translating patient and clinical needs into priorities, requirements, acceptance criteria, AI-feature evaluation, and cross-functional delivery.",
+      "summary": "Product Owner at BeHuman since June 2026, owning the patient interface and patient-chart analysis optimization. Investigated chart representation, grounding, cost and consistency; experimental comparisons informed a smaller-change-first and shadow-review plan. Built reusable adversarial AI QA and a development dashboard. Clinician validation, final promotion and wider QA adoption remain separate unverified milestones; no patient-outcome or production-savings claim.",
       "key_terms": [
         "product ownership",
         "patient experience",
@@ -317,7 +317,7 @@
       "source_mtime": 1777521217
     },
     "unify": {
-      "summary": "Detailed personal Bonsai voice-agent and inference research: reusable shared-prefill roles, interim-ASR plan updates and branch extension, speculation/batching tradeoffs, shared recurrent rollback state, quantized elastic KV, allocation transients, clause/sentence audio stitching, barge-in and heard history, compaction, Jev risk escalation, and qualified same-endpoint replay measurement.",
+      "summary": "Personal Bonsai voice-agent research explained with measured replay/memory charts and mechanism diagrams: shared prefill, interim-ASR plan updates, speculation and batching, recurrent rollback pooling, quantized elastic KV, clause-aware audio stitching, interruption, compaction and Jev escalation. The same-endpoint replay result is combined-pipeline scheduled-speech-end to first software PCM, not acoustic or speculation-only latency.",
       "key_terms": [
         "voice agent",
         "kv cache",
@@ -329,7 +329,7 @@
       "source_mtime": 1793119364
     },
     "deception-probes": {
-      "summary": "Independent deception and refusal probe research. Controlled Qwen3 experiments compare within-task accuracy, cross-task inversions, framing and corpus confounds, layer stability, ensemble baselines, self-generation controls, and behavioral refusal labels. Retained 8B comparison: mean off-diagonal AUROC 0.602 deception versus 0.877 same-corpus refusal. Goal-based causal interventions remain a proposal.",
+      "summary": "Independent safety research with retained-data transfer heatmaps/distributions, control comparisons and methodological diagrams. Qwen3-8B mean off-diagonal AUROC is 0.602 for length-controlled deception and 0.877 for same-corpus refusal. Qualifies framing, register, labeling, fit uncertainty and cross-task inversions; goal-based causal work remains proposed.",
       "key_terms": [
         "ai safety",
         "interpretability",
@@ -340,7 +340,7 @@
       "source_mtime": 1793119364
     },
     "mlx-fast": {
-      "summary": "Apple M4 Max inference study: original 25-technique inventory with 12 useful paths across compiled quantized attention, MoE execution, physical KV trimming, recurrent state, speculative decoding, prompt caching, and scheduling. Discusses negative results and later isolated remeasurements; does not treat stacked-stack gains as standalone or generalize to AMD.",
+      "summary": "Apple M4 Max inference research with historical combined-stack, SnapKV retrieval, and clean MoE rerun figures plus attention and rollback diagrams. Explains the original 25-technique/12-useful-path framing and conflicting later inventory, conditional gains, negative results and isolated remeasurement corrections. No universal or AMD-portable speed claim.",
       "key_terms": [
         "mlx",
         "apple silicon",

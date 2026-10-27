@@ -4,6 +4,7 @@ import { loadExperiences, formatRange } from "@/lib/data";
 import { EXPERIENCE_HIGHLIGHTS } from "@/lib/highlights";
 import { getDetailNeighbors } from "@/lib/detailOrder";
 import { DetailPage } from "@/components/DetailPage";
+import { isSinglePageEntry } from "@/lib/detailPresentation";
 
 type Params = Promise<{ id: string }>;
 
@@ -40,6 +41,7 @@ export default async function ExperiencePage({ params }: { params: Params }) {
       meta={formatRange(exp.start, exp.end)}
       tags={exp.tags}
       url={exp.url}
+      singlePage={isSinglePageEntry(exp.id)}
       highlights={EXPERIENCE_HIGHLIGHTS[exp.id] ?? []}
       detail={exp.detail}
       media={exp.media}

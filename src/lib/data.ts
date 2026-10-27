@@ -256,7 +256,7 @@ const EXPERIENCE_MEDIA: Record<string, ProjectMedia> = {
     hero: { type: "image", src: "/media/experiences/tesla/hand-tactile-egg-demo.jpg" },
   },
   "formulatrix": {
-    hero: { type: "video", src: "/media/experiences/formulatrix/formulatrix-bayes.mp4" },
+    hero: { type: "image", src: "/media/experiences/formulatrix/camera-droplet.jpg" },
   },
 };
 

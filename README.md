@@ -30,7 +30,7 @@ The public checkout builds with `data/candidate/personal.example.json`, which co
 - `public/media/`: public portfolio assets. Historical startup-internal illustrations and local animation-authoring sources are excluded.
 - `scripts/build-context.mjs`: generates the ignored `BEN_CONTEXT.md` used by the assistant. It runs before development and production builds.
 
-Keep technical results attached to their model, hardware, workload, measurement boundary, and limitations. PRSM and BeHuman descriptions intentionally remain high level.
+Keep technical results attached to their model, hardware, workload, measurement boundary, and limitations. [AGENTS.md](AGENTS.md) records the site-wide evidence and visual-presentation rules. PRSM stays high level; BeHuman explains the verified chart-analysis approach without publishing confidential measures or patient data.
 
 ## Optional services and deployment
 

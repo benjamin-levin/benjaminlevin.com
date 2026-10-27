@@ -26,10 +26,20 @@ Draper Lab is a not-for-profit R&D lab spun off from MIT, with deep history in i
 
 ### IMU fixture rebuild
 
-Completely overhauled the IMU-characterization test fixture's software stack — modernized hardware interfacing with a Python + serial protocol layer, replaced the legacy GUI with a Qt-based stack, and built an automated error-handling library with retry-with-backoff, exception categorization, watchdog re-init, and explicit propagation. The pre-overhaul fixture crashed multiple times per day from comms timeouts, race conditions on shared state, GUI deadlocks, and silently-corrupting untracked exceptions.
+Rebuilt the fixture's hardware interface with Python and a serial protocol layer, replaced the GUI with Qt, and introduced explicit recovery and error reporting.
+
+| Failure or workflow problem | Rebuild response |
+| --- | --- |
+| Serial communication timeouts | Retry with backoff |
+| Unclassified exceptions | Structured exception categories and recovery paths |
+| Unresponsive hardware | Watchdog-triggered reinitialization |
+| Previously silent data-corrupting exceptions | Explicit propagation so failures become visible |
+| Fragile operator interface | Replacement Qt GUI |
+
+The previous stack reportedly failed multiple times per day. The follow-up below is an engineering-manager report, rather than a published uptime log.
 
 :::callout
-**Verified 2 years post-internship: zero reported errors since deployment.** A multi-year production track record on a fixture that previously failed daily.
+**Verified 2 years post-internship: zero reported errors since deployment.** Follow-up with the previous engineering manager; no raw error log is presented here.
 :::
 
 ### Multi-file viz suite

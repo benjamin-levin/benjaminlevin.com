@@ -21,6 +21,7 @@ export type DetailPageProps = {
   detail: string;
   media?: MediaType;
   neighbors?: DetailNeighbors;
+  singlePage?: boolean;
 };
 
 export function DetailPage({
@@ -36,9 +37,10 @@ export function DetailPage({
   detail,
   media,
   neighbors,
+  singlePage = false,
 }: DetailPageProps) {
   const { intro, sections } = splitSubsections(detail);
-  const showSectionNav = sections.length > 1;
+  const showSectionNav = !singlePage && sections.length > 1;
 
   return (
     <main data-edge-nav className="min-h-screen pb-24">
@@ -102,7 +104,7 @@ export function DetailPage({
               <h2 className="mono text-xs uppercase tracking-[0.18em] text-[color:var(--accent)] mb-3">
                 Highlights
               </h2>
-              <HighlightStrip highlights={highlights} variant="linked" baseHref="" withDescription />
+              <HighlightStrip highlights={highlights} variant="linked" baseHref="" withDescription={!singlePage} />
             </section>
           )}
 

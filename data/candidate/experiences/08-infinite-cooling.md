@@ -33,7 +33,15 @@ The customer-side DAQ stack instrumented every deployed system. Inputs:
 - **Water-reclamation rate** — the headline metric customers cared about (gallons/hour reclaimed back into the tower).
 - **HV power-supply telemetry** (voltage, current, arc-event counters) — diagnostic signal for the electrode array.
 
-The existing prototype had accreted features one customer at a time without architectural cleanup: hard-coded sensor pinouts, ad-hoc logging that varied per deployment, and silent reliability holes. Field reports kept describing "DAQ stopped logging mid-run" or "sensor reading went to zero and we don't know why." Working with the electrical and mechanical engineers who owned the sensors and the install harnesses, I rebuilt the codebase around three things:
+The prototype had hard-coded sensor pinouts, inconsistent logging, and collection failures. Working with the electrical and mechanical engineers, I rebuilt the collection path around explicit sensor boundaries.
+
+| Field problem | Design response | Effect on diagnosis or operation |
+| --- | --- | --- |
+| Sensor variants required collection-loop changes | Uniform `read()`, `health()`, and `calibrate()` interface | New sensor variants use a shared collection path |
+| Readings lacked consistent context | Sensor ID, timestamp, calibration version, and health flags | Records carry the context needed for diagnosis |
+| One sensor exception stopped the run | Catch errors at the individual sensor boundary | Collection continues with a flagged degraded record |
+
+Implementation details:
 
 - **Standardized sensor abstraction** — a uniform interface (`read()`, `health()`, `calibrate()`) over each sensor type, so adding a new humidity sensor variant didn't require new code paths in the data-collection loop.
 - **Structured logging** — every reading tagged with sensor id, timestamp, calibration version, and a per-record health flag, so when a customer reported "the data looks weird from 2 to 4 PM" we could grep instead of guess.
@@ -76,4 +84,9 @@ Every test article was instrumented two ways:
 
 The campaign swept the design space the company was choosing between: **wire material** (different alloys), **gauge** (cross-section trade-off between fatigue resistance and electrical performance), and **strand-count layout** (solid vs. multi-strand, with different strand-twist patterns affecting both internal damping and surface finish). Head-to-head comparison against the same cam profile across all candidates put the spec-selection decision on data instead of intuition.
 
-Rig **design + build delivered** by the end of the co-op. The test campaign was running when I rolled off, with a successor engineer continuing the wire-spec sweep.
+| Evidence or deliverable | Status at end of co-op |
+| --- | --- |
+| Field vibration characterization | Captured to define representative excitation |
+| Cam-driven rig | Designed and built |
+| Wire material, gauge, and strand-layout comparison | Test campaign in progress; continued by a successor engineer |
+| Final fatigue-life ranking | Not reported here; no completed campaign dataset is available on this page |

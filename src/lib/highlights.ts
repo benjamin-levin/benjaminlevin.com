@@ -10,9 +10,10 @@ export type Highlight = {
 
 export const EXPERIENCE_HIGHLIGHTS: Record<string, Highlight[]> = {
   "behuman": [
-    { label: "Patient experience", description: "Product ownership for a clear, approachable patient interface.", anchor: "patient-experience-and-product-ownership" },
-    { label: "Chart analysis", description: "Quality and efficiency priorities for AI-assisted chart analysis.", anchor: "patient-chart-analysis-and-evaluation" },
-    { label: "Delivery", description: "Requirements, acceptance criteria, and cross-functional release coordination.", anchor: "cross-functional-delivery" },
+    { label: "Chart analysis", description: "Representation, groundedness, evaluation and the delivery decisions supported by experiments.", anchor: "chart-analysis-approach-and-results" },
+    { label: "Reviewable comparison", description: "Baseline visibility, evidence review and independent validation before promotion.", anchor: "make-the-comparison-reviewable" },
+    { label: "AI quality assurance", description: "Reusable adversarial evaluation and a development dashboard, with rollout limits explicit.", anchor: "reusable-ai-quality-assurance" },
+    { label: "Patient experience", description: "Product requirements and delivery for an approachable patient interface.", anchor: "patient-experience-and-delivery" },
   ],
   "prsm-ai": [
     { label: "Delivery workflow", description: "Ownership, scoped implementation, review, and integration.", anchor: "from-parallel-work-to-reviewed-delivery" },
@@ -140,7 +141,7 @@ export const PROJECT_HIGHLIGHTS: Record<string, Highlight[]> = {
     { label: "Shared prefill", description: "Reuse Bonsai context across roles instead of repeatedly processing the same prefix.", anchor: "bonsai-role-mode-and-shared-prefill" },
     { label: "Elastic KV", description: "Grow the cache while accounting for temporary allocations and device headroom.", anchor: "elastic-kv-and-allocation-transients" },
     { label: "Audio stitching", description: "Clause-aware first audio, sentence grouping, pauses, and listening comparisons.", anchor: "audio-stitching-is-part-of-the-model-experience" },
-    { label: "Speculation and state", description: "Draft verification, batching tradeoffs, and correct recurrent rollback.", anchor: "speculation-batching-and-the-cost-of-verification" },
+    { label: "Speculation and state", description: "Draft verification, batching tradeoffs, and correct recurrent rollback.", anchor: "speculation-batching-and-verification" },
     { label: "Measured replay", description: "Same-endpoint 6.66 to 3.66 s pilot, measured to first software PCM.", anchor: "measured-replay-comparison" },
   ],
   "deception-probes": [

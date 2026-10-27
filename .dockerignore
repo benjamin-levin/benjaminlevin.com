@@ -24,3 +24,8 @@ public/media/projects/prsm-ai
 
 # Public professional data is the image input; private local fields stay local.
 data/candidate/personal.json
+
+# Superseded synthetic numerical-result animations (retained locally only)
+public/media/projects/tetris-bot/tetris-training.mp4
+public/media/projects/ornithopter/ornithopter-pso.mp4
+public/media/experiences/formulatrix/formulatrix-bayes.mp4

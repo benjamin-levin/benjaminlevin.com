@@ -25,6 +25,20 @@ The original study investigated **25 techniques, with 12 useful paths**. Those a
 
 The work spans the public [mlx-fast package](https://github.com/benjamin-levin/mlx-fast), MLX kernel changes, and serving integrations. It is broader than the original SnapKV-only summary, and it belongs to the Apple-Silicon study; its ratios should not be transplanted to the AMD Bonsai runtime in [Unify](/project/unify).
 
+### Read the evidence at three scales
+
+![Historical combined-stack decode throughput at 32k, 96k and 128k context. Vanilla: 75.66, 52.60 and 43.22 tokens/s; stack: 96.24, 113.32 and 114.78 tokens/s.](/media/case-studies/mlx/historical-stack.png)
+
+*Historical combined-stack observations from the archived study, §5.1. One request; Qwen3.6-35B-A3B-4bit on M4 Max, 36 GB. These are reported measurements, not a new independent reproduction. The stack changes several mechanisms together, including lossy cache selection.*
+
+| Evidence scale | Question it answers | What it cannot establish |
+| --- | --- | --- |
+| Isolated kernel | Does this implementation reduce work for this tensor shape? | Whole-request latency or quality |
+| Clean serving ablation | Does one change help the existing serving loop? | Combined-stack gain or every arrival pattern |
+| Combined stack | Does this particular configuration improve the complete workload? | Independent credit for each component |
+
+**A note on the count.** “25 techniques, 12 useful paths” is the original study framing retained here. The surviving paper is a changing research document: its abstract later says 28 attempted / 13 shipped, while an older contribution still says 25 strategies and another says 12 dead ends. I cannot reconcile those into a single independently verified count. The twelve rows below are an editorial map of useful families, including correctness repairs and narrow integrations—not twelve universal speed wins. The negative-result table groups thirteen approaches; it is not a claim that all surviving draft variants partition cleanly into 25.
+
 ### Start with the bottleneck, then the intervention
 
 The target was Qwen3.6-35B-A3B-4bit: a hybrid full-attention/recurrent model with routed experts. “Fits in memory” was only the entry condition. During decoding, weights, attention caches, and recurrent state still had to move through the memory system for every generated token.
@@ -62,6 +76,17 @@ That failure motivated a compiled-in `fused_qsdpa` primitive: dequantize tiles c
 
 The distinction matters because **the original Python `metal_kernel` prototype was slower**, as the public README records. It should not receive credit for the later compiled primitive's measurements. The archived in-PR remeasurement reported roughly 1.10–1.30× for the compiled decode-shape microbenchmark in its tested regime; that is a kernel result, not a universal application speedup.
 
+![Mechanism diagram contrasting separate quantized matmuls and a materialized score matrix with tile dequantization and online softmax inside compiled attention.](/media/case-studies/mlx/attention-mechanism.svg)
+
+| Attention path | What happens to K/V | Intermediate work | Observed interpretation |
+| --- | --- | --- | --- |
+| BF16 fused SDPA | Read full-precision cache tiles | Online softmax; no full score matrix | Optimized reference |
+| Default quantized attention | Read fewer stored bytes, then quantized matmuls | Separate softmax and materialized scores | Can lose despite smaller cache |
+| Python Metal prototype | User-space custom implementation | Constrained execution geometry | Slower; no credit for compiled-kernel wins |
+| Compiled `fused_qsdpa` | Dequantize tiles inside attention; share across query heads | Online softmax inside the fused primitive | Corrected microbenchmark range: 1.10–1.30× |
+
+The design removes an intermediate representation rather than merely compressing its input. A tile is unpacked where it is consumed, reused across grouped query heads, then discarded. This is why the implementation surface matters: an algorithm name alone does not describe the memory traffic.
+
 ### Real batches do not all have the same prompt length
 
 A same-prompt benchmark is convenient, but agents often arrive with different document lengths. Left-padded caches and heterogeneous batches exercise paths that a homogeneous benchmark misses.
@@ -78,6 +103,17 @@ The useful distinction is whether selection itself still scans the full K tensor
 
 The public package reports **60.8 to 80.2 decode tokens/s at roughly 95k context** on the named M4 Max/model setup, with all three inserted retrieval needles recovered in that small test. The faster sliding-window alternative recovered only one of three. That is why I evaluated speed and retrieval together.
 
+![At roughly 95k context, baseline decoded at 60.8 tokens/s with three of three needles; physical SnapKV at 80.2 with three of three; sliding window at 102.2 with one of three.](/media/case-studies/mlx/snapkv-quality.png)
+
+*Public README measurements on the named M4 Max/model setup. The chart reports the observed retrieval count rather than turning three trials into a general quality percentage.*
+
+| Cache region | Why keep it | What changes physically |
+| --- | --- | --- |
+| Sink positions | Preserve initial attention anchors | Retained at the front |
+| Selected middle | Preserve content judged important | Gathered into a smaller tensor |
+| Recent window | Keep immediate conversation context | Slides as decoding advances |
+| Unselected history | Avoid rereading low-priority positions | Removed from the working cache |
+
 Three inserted needles do not establish general long-context answer quality. Nor does a faster decode loop remove the original prompt's prefill cost. The benefit starts after the work needed to construct and compress the cache.
 
 ### MoE fusion and the optimization the runtime already did
@@ -88,6 +124,10 @@ Replacing the gather itself was less promising than expected. The stock operatio
 
 The later measurements are an important correction. Whole-block compilation's isolated gain in vanilla serving tightened to around 0–1%, and a retained clean rerun was essentially flat at a 32k single-request decode shape. That does not invalidate the integration; it means I no longer describe an earlier gain measured with the rest of the optimized stack enabled as a standalone result.
 
+![Clean one-request MoE compilation rerun: off/on rates of 143.96/142.34 tokens/s at 1,980 prompt tokens and 110.73/110.90 at 32,692 prompt tokens.](/media/case-studies/mlx/moe-clean-rerun.png)
+
+*Retained targeted rerun, May 19. These are individual observations, without a retained uncertainty interval. They support “essentially flat,” not a statistically established speedup or slowdown. The three-request cells in that file include prefill in aggregate throughput and are deliberately excluded from this decode-only comparison.*
+
 A separate fused SwiGLU/down-projection primitive likewise looked better in a tight microbenchmark than in the live loop. The serving loop already overlapped graph construction through asynchronous evaluation. Removing overhead that was already hidden did not buy the same wall-clock improvement.
 
 ### Recurrent state is not just another attention cache
@@ -97,6 +137,17 @@ The hybrid model carries Gated DeltaNet state alongside full-attention KV. Reduc
 The other recurrent-state problem was correctness under speculation. Full-attention KV can often be truncated after a rejected draft; a recurrent update cannot be undone by decrementing a cache offset.
 
 I investigated algebraically reversing that update. It worked on benign synthetic arithmetic and became ill-conditioned on trained gates near zero. Those gates represent learned forgetting or overwriting: dividing through them is not a stable way to recover the past. The useful repair was to snapshot, restore, and re-forward the accepted prefix.
+
+![Rejected speculative tokens require attention-cache truncation and recurrent-state snapshot restoration followed by re-forwarding the accepted prefix.](/media/case-studies/mlx/rollback-mechanism.svg)
+
+| Speculative state transition | Full-attention cache | Recurrent state |
+| --- | --- | --- |
+| Before drafting | Save accepted position | Snapshot complete state |
+| Verify proposals | Append candidate K/V | Apply candidate recurrent updates |
+| Reject suffix | Truncate candidate positions | Restore snapshot |
+| Commit accepted prefix | Keep accepted positions | Re-forward accepted tokens from snapshot |
+
+A cache offset describes *where* attention history ends. It does not contain the prior recurrent state. That difference is the reason “truncate both caches” can yield a fast but incorrect speculative decoder.
 
 That exact rollback changed the interpretation of prompt-lookup decoding. Some earlier “speedups” had been measured on a token stream that no longer matched the autoregressive reference. Correctness had to be restored before timing the method again.
 
@@ -147,6 +198,19 @@ The unsuccessful inventory is as useful as the wins because it identifies the as
 | Naive persistent-prefix caching | Incomplete state/key assumptions did not survive serving integration |
 | The alternate llama.cpp MTP path | It did not become the working MLX depth-one integration |
 | Logical sparse-cache selection | Choosing a subset still read too much of the full cache to save bandwidth |
+
+### The correction ledger
+
+| Intervention | Later retained evidence | What I would claim now |
+| --- | --- | --- |
+| Compiled attention microbenchmark | 1.10–1.30× | Tested decode shapes; not end-to-end |
+| Heterogeneous attention batch | +21.9% | Three requests at 32k in that comparison |
+| Whole-MoE compile | +0.4–1.1%, described as within noise | Integration works; standalone speed remains weak |
+| BF16 recurrent state | +0.0–2.5% end-to-end on vanilla serving | A kernel saving can be diluted by attention |
+| Depth-one MTP | 1.13–1.21× | Tested short single-request workloads |
+| Prompt lookup and routing | Winners changed with workload and available backend | Include probe, verify and rollback costs |
+
+*Source: archived paper Appendix E.17, in-PR remeasurement on May 18–19. These are later reports, not measurements rerun for this website; draft PRs are not represented as merged upstream.*
 
 ### What the complete stack—and its corrections—show
 

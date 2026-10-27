@@ -39,9 +39,15 @@ My focus is the behavior that separation should enable: continuity without losin
 
 ### From parallel work to reviewed delivery
 
-The [public product workflow](https://prsmai.org/product) describes initiative decomposition, role-based delegation, scoped workstreams, review, and integration. Isolated implementation helps agents make progress in parallel; independent review and integration checks establish whether those changes work together.
+The [public product workflow](https://prsmai.org/product) describes scoped workstreams and reviewed integration. My work connects these concerns without exposing the startup's internal mechanisms.
 
-The important product distinction is between producing a plausible change and delivering a verified result. PRSM's direction is to make that difference visible throughout the workflow.
+| Concern | Contribution area | Intended outcome |
+| --- | --- | --- |
+| Coordination | Ownership, bounded responsibilities, and integration workflow | Parallel work that can be reviewed as one result |
+| Continuity | Durable workflow state and provider integrations | Progress that remains understandable across interruptions |
+| Governance | Permissions, review responsibilities, and operator visibility | Clear boundaries between a proposed action and an approved result |
+
+The distinction is between producing a plausible change and delivering a verified result. These remain development goals rather than a general-availability claim.
 
 ### Governance and provider flexibility
 

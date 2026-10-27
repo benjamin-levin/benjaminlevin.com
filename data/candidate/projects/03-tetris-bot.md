@@ -25,6 +25,15 @@ Northeastern CS4100 ML capstone. Team lead and sole code contributor. Goal: a Te
 
 ![Trained agent playing — placement decisions, line clears, and late-game survival](/media/projects/tetris-bot/tetris-playing.mov)
 
+
+| Action abstraction | What the model chooses | Engineering lesson |
+| --- | --- | --- |
+| Per-step actions | A movement or rotation each tick | Delayed placement rewards made credit assignment difficult |
+| Rotation × column | A target placement for a deterministic controller | Learning board representations consumed the search budget |
+| Reachable terminal placement | A board evaluated after the piece lands | BFS handles reachability; learned weights focus on board value |
+
+![Illustrative placement and training mechanism; no synthetic training curve or measured performance comparison](/media/case-studies/legacy/tetris-placement.svg)
+
 ### Architectural progression
 
 Three action-space abstractions, each chosen at a higher level than the last. The pattern: every step up the abstraction ladder traded a piece of "the agent is learning the game from raw inputs" for "the agent makes one consequential decision per piece, which is the only decision that matters." The final architecture is the one that fit the evolvable-agent budget.
@@ -39,7 +48,7 @@ It died on **credit assignment**. A single piece-placement is the consequence of
 
 A larger PyTorch MLP: input `(COLS·ROWS + 1)` (board + current piece id), two hidden layers `400 → 200 → 100`, output `4·COLS` — a softmax over **(rotation × column)** terminal placements per frame. The network picked a target placement; a deterministic controller drove the piece there.
 
-This was a real architecture: trained for **2,993 generations** of the EA wrapper, accumulating **3.7 GB of checkpoints** across the population. It learned to clear lines and avoid the most obvious holes. But it plateaued — survival rates didn't climb past a ceiling that hand-tuned heuristics already cleared. The MLP was spending capacity re-deriving features (column heights, hole counts) that we could compute in microseconds, and the EA was burning generations on weights that didn't matter. The diagnosis: too much representation under-determined by too little signal.
+This was a real architecture: trained across successive generations of the EA wrapper. It learned to clear lines and avoid the most obvious holes. But it plateaued — survival rates didn't climb past a ceiling that hand-tuned heuristics already cleared. The MLP was spending capacity re-deriving features (column heights, hole counts) that we could compute in microseconds, and the EA was burning generations on weights that didn't matter. The diagnosis: too much representation under-determined by too little signal.
 
 #### 3. `place-tetris` — terminal-placement search *(active)*
 
@@ -63,6 +72,18 @@ What this progression bought: removing the MLP didn't give up expressiveness —
 ![Every placement option being evaluated, ranked, and pruned in real time](/media/projects/tetris-bot/heuristic-pruning.mp4)
 
 ### 9 features × 5 polynomial basis = 45 trained weights
+
+| Feature family | Board property represented |
+| --- | --- |
+| Minimum, average and maximum height | Overall stack level and remaining room |
+| Bumpiness | Uneven adjacent column heights |
+| Flood-fill holes | Empty spaces blocked from the top |
+| Overhangs | Board structures that constrain future access |
+| Normalized score | Progress already achieved |
+| Quadratic surface fit | Large-scale shape of the stack |
+| Fear of Death | Headroom near the ceiling |
+
+The nine scalar features become a weighted basis representation; the weight count describes model structure, not a measured score improvement.
 
 Pure NumPy linear cost over nine board-state features: bumpiness, min/avg/max height, flood-fill hole count, overhangs, normalized score, quadratic-fit curvature, and **Fear of Death** (headroom from stack top to ceiling, clipped to 4). Each board below shows the feature drawn in red over a live position.
 
@@ -99,9 +120,5 @@ Tetris scores are right-skewed; mean is misleading. Three evaluation choices pus
 - **Log-normal MLE ranking** — `exp(log(scale) − shape/2)` rewards low variance, not lucky runs.
 - **AIC-adaptive budget** — keep playing per individual until log-normal AIC stabilizes (Δ < 4%).
 - **Snapshot-resumable evaluation** — store mid-game boards with probability `0.12·max_height^8`; 60% of plays resume from a stored high-stack state, skewing samples toward late-game competence.
-
-Best-rank climbs across generations, avg-rank below, and the diversity stripe shows the 30% lineage cap holding pluralism (without the cap, dots collapse to a single color).
-
-![Best/avg rank across generations, with lineage-diversity stripe](/media/projects/tetris-bot/tetris-training.mp4)
 
 Parallelized across all CPU cores via `ProcessPoolExecutor`. Tooling alongside the EA: lineage visualizer (networkx + Graphviz), live matplotlib training monitor, re-ranker, seed-population generator, and `cProfile` per-worker merge.

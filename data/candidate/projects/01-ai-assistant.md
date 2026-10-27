@@ -31,7 +31,25 @@ End-to-end personal AI-assistant platform built solo. Two coordinated runtimes s
 
 
 
+
+| System | Why it exists | Design choice |
+| --- | --- | --- |
+| Voice runtime | Follow speech while preparing a reply | Incremental hypothesis, explicit turn-end decision, sentence-streamed speech |
+| Tool routing | Turn intent into an actionable request | Structured classification with a confidence gate |
+| Research digest | Convert many feeds into a readable article | URL deduplication, publish-time awareness, synthesis and voice playback |
+| Job scout | Turn listings into reviewable application materials | Normalize, score, deduplicate, tailor and compile |
+| Text gateway | Support multiple chat channels | Plugin interfaces and channel-specific extensions |
+
+![Illustrative voice-runtime schematic; a mechanism overview, with no measured latency values](/media/case-studies/legacy/assistant-runtime.svg)
+
 ### Voice runtime
+
+| Phase | Information available | Work performed |
+| --- | --- | --- |
+| While the user speaks | Revising partial transcript | Small model updates a running hypothesis |
+| Turn-end decision | Prosody, lexical tail and silence | Predictor commits the turn boundary |
+| Response generation | Finalized hypothesis and tool context | Speaker streams sentences into the TTS queue |
+| Speculative opener | Provisional hypothesis before commitment | Reuse a prepared opener when still appropriate; otherwise generate afresh |
 
 :::callout
 **Dual-agent train-of-thought + speaker:** a fast small model refines a hypothesis of what the user means *while they're still speaking*; a slower capable model streams the spoken reply the moment the turn-end predictor commits.

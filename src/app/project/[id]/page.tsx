@@ -4,6 +4,7 @@ import { loadProjects, formatRange } from "@/lib/data";
 import { PROJECT_HIGHLIGHTS } from "@/lib/highlights";
 import { getDetailNeighbors } from "@/lib/detailOrder";
 import { DetailPage } from "@/components/DetailPage";
+import { isSinglePageEntry } from "@/lib/detailPresentation";
 
 type Params = Promise<{ id: string }>;
 
@@ -37,6 +38,7 @@ export default async function ProjectPage({ params }: { params: Params }) {
       meta={formatRange(project.start, project.end)}
       tags={project.tags}
       url={project.url}
+      singlePage={isSinglePageEntry(project.id)}
       highlights={PROJECT_HIGHLIGHTS[project.id] ?? []}
       detail={project.detail}
       media={project.media}
