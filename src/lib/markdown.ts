@@ -172,11 +172,11 @@ export function renderMarkdown(md: string): string {
         rows.push(cells);
         i++;
       }
-      out.push("<table><thead><tr>" +
+      out.push('<div class="md-table-wrap" tabindex="0" role="region" aria-label="Data table"><table><thead><tr>' +
         headers.map((h) => `<th>${inline(escape(h))}</th>`).join("") +
         "</tr></thead><tbody>" +
         rows.map((r) => "<tr>" + r.map((c) => `<td>${inline(escape(c))}</td>`).join("") + "</tr>").join("") +
-        "</tbody></table>");
+        "</tbody></table></div>");
       continue;
     }
 

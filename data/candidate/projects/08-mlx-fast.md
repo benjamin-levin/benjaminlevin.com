@@ -86,7 +86,7 @@ Routed experts made an appealing target: many projections, quantized gathers, an
 
 Replacing the gather itself was less promising than expected. The stock operation already dispatched a combined kernel for the selected experts, so an early “many launches become one” justification was wrong. Expert deduplication also introduced CPU-side preparation that could outweigh the small amount of duplicate work removed.
 
-The later measurements are an important correction. Whole-block compilation's isolated gain in vanilla serving tightened to around 0–1%, and a retained clean rerun was essentially flat at a 32k single-request decode shape. That does not invalidate the integration; it means I no longer describe its earlier stacked-stack number as a standalone result.
+The later measurements are an important correction. Whole-block compilation's isolated gain in vanilla serving tightened to around 0–1%, and a retained clean rerun was essentially flat at a 32k single-request decode shape. That does not invalidate the integration; it means I no longer describe an earlier gain measured with the rest of the optimized stack enabled as a standalone result.
 
 A separate fused SwiGLU/down-projection primitive likewise looked better in a tight microbenchmark than in the live loop. The serving loop already overlapped graph construction through asynchronous evaluation. Removing overhead that was already hidden did not buy the same wall-clock improvement.
 

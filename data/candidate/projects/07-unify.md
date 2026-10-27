@@ -36,7 +36,7 @@ An endpoint decision is still necessary. A short pause may mean the user is thin
 
 ### Bonsai role mode and shared prefill
 
-The fast local role-switching path—the shared-context Bonsai mode behind the Jev-style orchestration—uses **one set of target-model weights and a reusable context trunk**. Planner, thinker, and speaker are logical roles, not three independently loaded large models.
+The fast local Bonsai role-switching path uses **one set of target-model weights and a reusable context trunk**. Planner, thinker, and speaker are logical roles, not three independently loaded large models. This shared-prefill path is separate from the optional hosted Jev classifier discussed below.
 
 The expensive shared material is placed before the role-specific suffix: conversation context, the current utterance, and relevant evidence. A role branches from that trunk and prefills only its directive and new suffix. Putting the role selector at the end matters: three prompts with different personas at the beginning do not have the same reusable prefix, however similar their later text looks.
 
