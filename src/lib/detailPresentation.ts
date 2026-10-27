@@ -18,7 +18,20 @@ const SECTION_ALIASES: Record<string, Record<string, string>> = {
     "quantization-is-several-different-decisions": "quantization-is-several-decisions",
   },
   "deception-probes": {
-    "limitations-and-next-experiment": "where-i-would-take-the-research-next",
+      "the-measurement-a-direction-is-not-an-explanation": "how-the-probes-were-measured",
+      "building-a-transfer-experiment-instead-of-one-score": "how-the-probes-were-measured",
+      "what-each-control-changed": "how-the-probes-were-measured",
+      "prompt-framing-can-masquerade-as-honesty": "how-the-probes-were-measured",
+      "cross-task-failure-and-inverted-rankings": "deception-transfer-and-representation-stability",
+      "layers-stability-and-misleading-model-size-stories": "deception-transfer-and-representation-stability",
+      "when-an-ensemble-win-depends-on-its-baseline": "ensembles-self-generated-text-and-sincere-errors",
+      "self-generated-text-sincere-errors-and-failed-predictions": "ensembles-self-generated-text-and-sincere-errors",
+      "refusal-transfer-the-follow-up-question": "refusal-transfer-corpus-and-behavioral-controls",
+      "the-perfect-result-that-needed-a-control": "refusal-transfer-corpus-and-behavioral-controls",
+      "harmful-prompts-are-not-observed-refusals": "refusal-transfer-corpus-and-behavioral-controls",
+      "what-the-nulls-and-uncertainty-actually-cover": "limits-uncertainty-and-the-next-experiment",
+      "where-i-would-take-the-research-next": "limits-uncertainty-and-the-next-experiment",
+      "limitations-and-next-experiment": "limits-uncertainty-and-the-next-experiment"
   },
   "mlx-fast": {
     "physical-cache-truncation": "snapkv-selection-has-to-remove-real-traffic",

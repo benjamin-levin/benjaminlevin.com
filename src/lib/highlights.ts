@@ -145,10 +145,10 @@ export const PROJECT_HIGHLIGHTS: Record<string, Highlight[]> = {
     { label: "Measured replay", description: "Same-endpoint 6.66 to 3.66 s pilot, measured to first software PCM.", anchor: "measured-replay-comparison" },
   ],
   "deception-probes": [
-    { label: "Transfer and inversions", description: "A successful within-task direction can reverse its ranking on another task.", anchor: "cross-task-failure-and-inverted-rankings" },
-    { label: "Refusal controls", description: "Why a perfect matrix needed a same-corpus comparison.", anchor: "the-perfect-result-that-needed-a-control" },
-    { label: "Behavioral labels", description: "Separate harmful prompts from the model's observed refusal behavior.", anchor: "harmful-prompts-are-not-observed-refusals" },
-    { label: "Uncertainty", description: "What the nulls, bootstrap intervals, and retained artifacts actually establish.", anchor: "what-the-nulls-and-uncertainty-actually-cover" },
+    { label: "Probe design", description: "Measurement, transfer design, and controls for framing and dataset shortcuts.", anchor: "how-the-probes-were-measured" },
+    { label: "Transfer and inversions", description: "Cross-task failures, reversed rankings, and representation stability.", anchor: "deception-transfer-and-representation-stability" },
+    { label: "Refusal controls", description: "Read the corpus controls and observed-behavior checks together.", anchor: "refusal-transfer-corpus-and-behavioral-controls" },
+    { label: "Limits and next steps", description: "What the uncertainty establishes and which causal experiment remains proposed.", anchor: "limits-uncertainty-and-the-next-experiment" },
   ],
   "mlx-fast": [
     { label: "25 approaches", description: "Twelve useful paths, their operating regimes, and the failed assumptions behind the rest.", anchor: "the-twelve-useful-paths" },
